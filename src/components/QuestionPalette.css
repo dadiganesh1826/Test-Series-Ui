@@ -1,0 +1,192 @@
+.question-palette {
+    padding: 16px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+}
+
+.palette-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.palette-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.palette-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.palette-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+    overflow-y: auto;
+    flex: 1;
+    align-content: start;
+}
+
+.palette-question {
+    aspect-ratio: 1;
+    /* Square */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    /* Slightly rounded square */
+    background: #F3F4F6;
+    /* Default Not Visited */
+    color: #374151;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 4px;
+    position: relative;
+    font-size: 14px;
+}
+
+.palette-question:hover {
+    filter: brightness(0.95);
+    transform: scale(1.05);
+}
+
+.palette-question .question-number {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.palette-question .question-icon {
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+/* Status Styles */
+.palette-question.answered {
+    background-color: #10b981;
+    /* Green */
+    color: white;
+    border-color: #059669;
+}
+
+.palette-question.not-answered {
+    background-color: #ef4444;
+    /* Red */
+    color: white;
+    border-color: #dc2626;
+}
+
+.palette-question.marked {
+    background-color: #8b5cf6;
+    /* Purple for Review (Testbook style) or Orange #f59e0b */
+    /* Guide says Orange for Marked */
+    background-color: #f59e0b;
+    color: white;
+    border-color: #d97706;
+}
+
+.palette-question.marked {
+    border-radius: 50%;
+    /* Circle for marked usually? Or just consistent shape */
+    /* Let's keep square for consistency but maybe add a badge? */
+}
+
+.palette-question.not-visited {
+    background-color: #F3F4F6;
+    color: #4B5563;
+    border-color: #E5E7EB;
+}
+
+/* Active State (Current Question) */
+.palette-question.active {
+    border: 2px solid #0D47A1;
+    /* Navy Blue Border */
+    box-shadow: 0 0 0 2px rgba(13, 71, 161, 0.2);
+    z-index: 2;
+}
+
+/* Legend */
+.palette-legend {
+    background: #FAFAFA;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+
+.palette-legend h4 {
+    font-size: 13px;
+    margin: 0 0 8px 0;
+    color: var(--text-secondary);
+}
+
+.legend-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+/* Summary Box */
+.palette-summary {
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+    margin-bottom: 16px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+}
+
+/* Submit Button */
+.submit-exam-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.submit-exam-btn:hover {
+    background: var(--primary-dark);
+}

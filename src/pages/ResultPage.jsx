@@ -146,7 +146,7 @@ const ResultPage = () => {
                                     <span className={`result-indicator ${question.isCorrect ? 'correct' : question.selectedAnswer ? 'incorrect' : 'unanswered'}`}>
                                         {question.isCorrect ? '✓ Correct' : question.selectedAnswer ? '✗ Incorrect' : '− Unanswered'}
                                     </span>
-                                    <span className="marks">{question.marksObtained} / {question.marksObtained + (question.isCorrect ? 0 : 5)} marks</span>
+                                    <span className="marks">{question.marksObtained} / {question.questionMarks || question.marksObtained} marks</span>
                                 </div>
 
                                 <p className="question-text-result">{question.questionText}</p>

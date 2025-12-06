@@ -1,10 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
 
 const Navbar = () => {
     const { user, logout, isAuthenticated } = useAuth();
+    const location = useLocation();
+
+    // Hide Navbar on Exam Page to provide full-screen experience
+    if (location.pathname.startsWith('/exam/')) {
+        return null;
+    }
 
     return (
         <nav className="navbar">

@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import TestSeriesList from './pages/TestSeriesList';
 import ExamPage from './pages/ExamPage';
+import EnhancedExamPage from './pages/EnhancedExamPage';
 import ResultPage from './pages/ResultPage';
 import ResultsHistory from './pages/ResultsHistory';
 import './index.css';
@@ -85,7 +86,7 @@ function AppContent() {
                         path="/exam/:examId"
                         element={
                             <ProtectedRoute>
-                                <ExamPage />
+                                <EnhancedExamPage />
                             </ProtectedRoute>
                         }
                     />

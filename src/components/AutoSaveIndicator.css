@@ -1,0 +1,106 @@
+.auto-save-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.save-icon {
+    font-size: 16px;
+}
+
+.save-text {
+    white-space: nowrap;
+}
+
+/* Status States */
+.status-saving {
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.status-saving .save-icon {
+    animation: spin 1s linear infinite;
+}
+
+.status-saved {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-saved .save-icon {
+    animation: checkmark 0.5s ease-in-out;
+}
+
+.status-error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.status-error .save-icon {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Animations */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes checkmark {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .auto-save-indicator {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .save-icon {
+        font-size: 14px;
+    }
+
+    .save-text {
+        display: none;
+    }
+}

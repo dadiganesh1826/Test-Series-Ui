@@ -22,6 +22,9 @@ export const testSeriesAPI = {
   getQuestions: (id) => api.get(`/test-series/${id}/questions`),
   create: (testSeries) => api.post('/test-series', testSeries),
   addQuestion: (testSeriesId, question) => api.post(`/test-series/${testSeriesId}/questions`, question),
+  search: (query) => api.get(`/test-series/search?query=${query}`),
+  getByCategory: (categoryId) => api.get(`/test-series/category/${categoryId}`),
+  getFeatured: () => api.get('/test-series/featured'),
 };
 
 // Exam API
@@ -30,6 +33,22 @@ export const examAPI = {
   submitExam: (examData) => api.post('/exams/submit', examData),
   getHistory: (userId) => api.get(`/exams/history?userId=${userId}`),
   getResult: (examAttemptId, userId) => api.get(`/exams/result/${examAttemptId}?userId=${userId}`),
+  autoSave: (autoSaveData) => api.post('/exams/auto-save', autoSaveData),
+  getTimeRemaining: (examAttemptId) => api.get(`/exams/${examAttemptId}/time-remaining`),
+};
+
+// Analytics API
+export const analyticsAPI = {
+  getRank: (examAttemptId) => api.get(`/analytics/exam/${examAttemptId}/rank`),
+  getPercentile: (examAttemptId) => api.get(`/analytics/exam/${examAttemptId}/percentile`),
+  getTestStatistics: (testSeriesId) => api.get(`/analytics/test-series/${testSeriesId}/statistics`),
+  getDetailedAnalytics: (examAttemptId) => api.get(`/analytics/exam/${examAttemptId}/detailed`),
+};
+
+// Category API
+export const categoryAPI = {
+  getAll: () => api.get('/categories'),
+  getById: (id) => api.get(`/categories/${id}`),
 };
 
 export default api;
