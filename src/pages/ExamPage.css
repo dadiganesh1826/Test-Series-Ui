@@ -1,0 +1,224 @@
+.exam-page {
+    min-height: 100vh;
+    background: var(--bg-primary);
+}
+
+.exam-header {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 24px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.exam-info h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.exam-meta {
+    display: flex;
+    gap: 12px;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.progress-bar {
+    height: 4px;
+    background: var(--bg-tertiary);
+    border-radius: 2px;
+    margin-top: 16px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary-gradient);
+    transition: width 0.3s ease;
+}
+
+.exam-content {
+    padding: 40px 0;
+}
+
+.question-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    margin-bottom: 32px;
+    backdrop-filter: blur(10px);
+}
+
+.question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.question-number {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.question-marks {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.question-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 28px;
+    line-height: 1.6;
+}
+
+.options-grid {
+    display: grid;
+    gap: 16px;
+}
+
+.option-button {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: left;
+}
+
+.option-button:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--primary-color);
+    transform: translateX(4px);
+}
+
+.option-button.selected {
+    background: rgba(102, 126, 234, 0.15);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.option-label {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-gradient);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.option-button.selected .option-label {
+    animation: pulse 0.6s ease;
+}
+
+.option-text {
+    color: var(--text-primary);
+    font-size: 16px;
+    flex: 1;
+}
+
+.exam-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.question-indicators {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    flex: 1;
+    justify-content: center;
+}
+
+.indicator {
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.indicator:hover {
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.indicator.active {
+    background: var(--primary-gradient);
+    color: white;
+    border-color: transparent;
+}
+
+.indicator.answered {
+    background: rgba(16, 185, 129, 0.2);
+    border-color: var(--success-color);
+    color: var(--success-color);
+}
+
+.indicator.answered.active {
+    background: var(--success-gradient);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .exam-header {
+        padding: 16px 0;
+    }
+
+    .exam-info h2 {
+        font-size: 20px;
+    }
+
+    .question-card {
+        padding: 24px 20px;
+    }
+
+    .question-text {
+        font-size: 18px;
+    }
+
+    .exam-navigation {
+        flex-direction: column;
+    }
+
+    .exam-navigation .btn {
+        width: 100%;
+    }
+
+    .question-indicators {
+        order: -1;
+    }
+}
