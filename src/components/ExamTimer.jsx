@@ -6,6 +6,8 @@ const ExamTimer = ({ durationMinutes, startTime, onTimeExpired }) => {
     const [isWarning, setIsWarning] = useState(false);
     const [isCritical, setIsCritical] = useState(false);
 
+    const expiredRef = React.useRef(false);
+
     useEffect(() => {
         if (!startTime) return;
 
@@ -19,10 +21,10 @@ const ExamTimer = ({ durationMinutes, startTime, onTimeExpired }) => {
             setTimeRemaining(remaining);
 
             // Set warning states
-            if (remaining <= 300 && remaining > 60) { // 5 minutes
+            if (remaining <= 300 && remaining > 60) {
                 setIsWarning(true);
                 setIsCritical(false);
-            } else if (remaining <= 60) { // 1 minute
+            } else if (remaining <= 60 && remaining > 0) {
                 setIsWarning(false);
                 setIsCritical(true);
             } else {
@@ -31,8 +33,14 @@ const ExamTimer = ({ durationMinutes, startTime, onTimeExpired }) => {
             }
 
             // Time expired
-            if (remaining === 0 && onTimeExpired) {
-                onTimeExpired();
+            if (remaining === 0) {
+                if (!expiredRef.current && onTimeExpired) {
+                    expiredRef.current = true;
+                    onTimeExpired();
+                }
+            } else {
+                // Reset ref if time was extended somehow (rare but safe)
+                expiredRef.current = false;
             }
         };
 
