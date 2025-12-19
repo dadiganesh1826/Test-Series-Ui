@@ -30,6 +30,30 @@ export const examAPI = {
   submitExam: (examData) => api.post('/exams/submit', examData),
   getHistory: (userId) => api.get(`/exams/history?userId=${userId}`),
   getResult: (examAttemptId, userId) => api.get(`/exams/result/${examAttemptId}?userId=${userId}`),
+  autoSave: (autoSaveData) => api.post('/exams/auto-save', autoSaveData),
+  getTimeRemaining: (examAttemptId) => api.get(`/exams/${examAttemptId}/time-remaining`),
+};
+
+// Analytics API
+export const analyticsAPI = {
+  getRank: (examAttemptId) => api.get(`/analytics/exam/${examAttemptId}/rank`),
+  getPercentile: (examAttemptId) => api.get(`/analytics/exam/${examAttemptId}/percentile`),
+  getTestStatistics: (testSeriesId) => api.get(`/analytics/test-series/${testSeriesId}/statistics`),
+  getDetailedAnalytics: (examAttemptId) => api.get(`/analytics/exam/${examAttemptId}/detailed`),
+  getWeeklyProgress: (userId) => api.get(`/analytics/user/${userId}/weekly-progress`),
+};
+
+// User API
+export const userAPI = {
+  getProfile: (userId) => api.get(`/users/${userId}`),
+  updateProfile: (userId, data) => api.put(`/users/${userId}`, data),
+  updateGoal: (userId, weeklyGoal) => api.post(`/users/${userId}/goal`, { weeklyGoal }),
+};
+
+// Category API
+export const categoryAPI = {
+  getAll: () => api.get('/categories'),
+  getById: (id) => api.get(`/categories/${id}`),
 };
 
 export default api;

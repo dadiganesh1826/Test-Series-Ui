@@ -1,0 +1,136 @@
+/* Admin Login - Binance Inspired Theme */
+.admin-login-container {
+    min-height: 100vh;
+    width: 100%;
+    background-color: #FFFFFF;
+    /* Pure White Background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #1E2329;
+}
+
+/* No Pseudo-elements, clean look */
+.admin-login-container::before {
+    display: none;
+}
+
+.admin-login-card {
+    background: #FFFFFF;
+    width: 100%;
+    max-width: 384px;
+    /* Narrower, mobile-app like */
+    padding: 0;
+    box-shadow: none;
+    /* Flat design */
+    margin: 0;
+}
+
+.admin-login-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.admin-icon {
+    display: none;
+    /* Minimalist - no big icon */
+}
+
+.admin-login-header h1 {
+    color: #1E2329;
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    text-align: left;
+    /* Left align like Binance login */
+}
+
+.admin-login-header p {
+    color: #707A8A;
+    font-size: 14px;
+    margin: 0;
+    text-align: left;
+}
+
+.admin-login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    color: #1E2329;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-group input {
+    padding: 12px;
+    border: 1px solid #EAECEF;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: all 0.2s;
+    background: #FFFFFF;
+    color: #1E2329;
+    height: 48px;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #FCD535;
+    /* Binance Yellow Focus */
+}
+
+.admin-login-btn {
+    background: #FCD535;
+    /* Binance Yellow */
+    color: #1E2329;
+    /* Black Text */
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    height: 48px;
+}
+
+.admin-login-btn:hover:not(:disabled) {
+    background: #F0B90B;
+}
+
+.admin-login-footer {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.admin-login-footer p button {
+    color: #C99400;
+}
+
+.demo-credentials {
+    margin-top: 40px;
+    background: #FAFAFA;
+    padding: 16px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #707A8A;
+    text-align: left;
+}

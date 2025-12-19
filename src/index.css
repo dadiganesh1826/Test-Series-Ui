@@ -5,76 +5,86 @@
 }
 
 :root {
-  /* Color Palette */
-  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --danger-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-  
-  --primary-color: #667eea;
-  --primary-dark: #5568d3;
-  --secondary-color: #764ba2;
-  --success-color: #10b981;
-  --danger-color: #ef4444;
-  --warning-color: #f59e0b;
-  
-  --bg-primary: #0f0f23;
-  --bg-secondary: #1a1a2e;
-  --bg-tertiary: #16213e;
-  --bg-card: rgba(255, 255, 255, 0.05);
-  --bg-card-hover: rgba(255, 255, 255, 0.08);
-  
-  --text-primary: #ffffff;
-  --text-secondary: #a0aec0;
-  --text-muted: #718096;
-  
-  --border-color: rgba(255, 255, 255, 0.1);
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3);
-  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.4);
-  
-  --radius-sm: 8px;
-  --radius-md: 12px;
+  /* =========================================
+     Color Palette - Binance Inspired Theme
+     ========================================= */
+
+  /* Primary Colors - Binance Yellow */
+  --primary-color: #FCD535;
+  /* Vital Yellow */
+  --primary-dark: #F0B90B;
+  /* Deep Yellow */
+  --primary-light: #FEF6D8;
+  /* Pale Yellow */
+
+  /* Text Colors - High Contrast */
+  --text-primary: #1E2329;
+  /* Binance Black */
+  --text-secondary: #474D57;
+  /* Dark Gray */
+  --text-muted: #707A8A;
+  /* Light Gray */
+  --text-inverse: #1E2329;
+  /* Black text on Yellow buttons */
+
+  /* Background Colors */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #FAFAFA;
+  --bg-tertiary: #F5F5F5;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FAFAFA;
+
+  /* Accent Colors */
+  --accent-color: #1E2329;
+  --accent-hover: #000000;
+
+  /* Status Colors */
+  --success-color: #0ECB81;
+  /* Binance Green */
+  --danger-color: #F6465D;
+  /* Binance Red */
+  --warning-color: #FCD535;
+  --info-color: #5472d2;
+
+  /* Borders & Shadows */
+  --border-color: #EAECEF;
+  --input-border: #EAECEF;
+  --focus-border: #FCD535;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.08);
+  /* Smoother shadow */
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+  /* Spacing & Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  /* Slightly softer */
   --radius-lg: 16px;
-  --radius-xl: 24px;
-  
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  --transition: all 0.2s ease-in-out;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'IBM Plex Sans', sans-serif;
+  /* Tech font */
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   background: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
-  overflow-x: hidden;
+  font-size: 15px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
-  border-radius: 5px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-dark);
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
 
 /* Utility Classes */
@@ -84,12 +94,14 @@ code {
   padding: 0 20px;
 }
 
+/* Buttons - Binance Style */
 .btn {
-  padding: 12px 28px;
+  padding: 10px 24px;
   border: none;
-  border-radius: var(--radius-md);
-  font-size: 16px;
-  font-weight: 600;
+  border-radius: var(--radius-sm);
+  /* Slightly boxy */
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   transition: var(--transition);
   text-decoration: none;
@@ -97,76 +109,29 @@ code {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  position: relative;
-  overflow: hidden;
+  height: 44px;
 }
 
-.btn::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.btn:hover::before {
-  width: 300px;
-  height: 300px;
-}
-
+/* Primary Button - Yellow with Black Text */
 .btn-primary {
-  background: var(--primary-gradient);
-  color: white;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  background-color: var(--primary-color);
+  color: var(--text-inverse);
+  /* Black Text */
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  background-color: var(--primary-dark);
+  filter: brightness(0.95);
 }
 
+/* Secondary Button - Gray */
 .btn-secondary {
-  background: var(--bg-card);
+  background-color: #EAECEF;
   color: var(--text-primary);
-  border: 1px solid var(--border-color);
 }
 
 .btn-secondary:hover {
-  background: var(--bg-card-hover);
-  transform: translateY(-2px);
-}
-
-.btn-success {
-  background: var(--success-gradient);
-  color: white;
-  box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
-}
-
-.btn-success:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
-}
-
-.btn-danger {
-  background: var(--secondary-gradient);
-  color: white;
-  box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
-}
-
-.btn-danger:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
-}
-
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none !important;
+  background-color: #D5D7DA;
 }
 
 .card {
@@ -174,20 +139,15 @@ code {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: 24px;
-  backdrop-filter: blur(10px);
-  transition: var(--transition);
+  box-shadow: none;
+  /* Cleaner, flatter look */
 }
 
 .card:hover {
-  background: var(--bg-card-hover);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-sm);
 }
 
-.input-group {
-  margin-bottom: 20px;
-}
-
+/* Form Inputs */
 .input-group label {
   display: block;
   margin-bottom: 8px;
@@ -200,126 +160,50 @@ code {
 .input-group textarea,
 .input-group select {
   width: 100%;
-  padding: 12px 16px;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
+  padding: 12px;
+  background: #FFFFFF;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-sm);
   color: var(--text-primary);
-  font-size: 16px;
-  font-family: inherit;
+  font-size: 15px;
   transition: var(--transition);
+  height: 48px;
 }
 
-.input-group input:focus,
-.input-group textarea:focus,
-.input-group select:focus {
+.input-group input:focus {
   outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  border-color: var(--focus-border);
 }
 
 .badge {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
+  padding: 4px 8px;
+  border-radius: 4px;
   font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 500;
 }
 
 .badge-success {
-  background: rgba(16, 185, 129, 0.2);
+  background: rgba(14, 203, 129, 0.1);
   color: var(--success-color);
 }
 
 .badge-danger {
-  background: rgba(239, 68, 68, 0.2);
+  background: rgba(246, 70, 93, 0.1);
   color: var(--danger-color);
 }
 
 .badge-warning {
-  background: rgba(245, 158, 11, 0.2);
-  color: var(--warning-color);
+  background: rgba(252, 213, 53, 0.15);
+  color: #B38F00;
 }
 
-.badge-primary {
-  background: rgba(102, 126, 234, 0.2);
-  color: var(--primary-color);
+a {
+  color: #C99400;
+  /* Darker Gold for text links */
+  text-decoration: none;
+  font-weight: 500;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-}
-
-.fade-in {
-  animation: fadeIn 0.6s ease-out;
-}
-
-.slide-in {
-  animation: slideIn 0.4s ease-out;
-}
-
-/* Loading Spinner */
-.spinner {
-  border: 3px solid var(--bg-card);
-  border-top: 3px solid var(--primary-color);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.loading-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 400px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .container {
-    padding: 0 16px;
-  }
-  
-  .btn {
-    padding: 10px 20px;
-    font-size: 14px;
-  }
-  
-  .card {
-    padding: 16px;
-  }
+a:hover {
+  text-decoration: underline;
 }
