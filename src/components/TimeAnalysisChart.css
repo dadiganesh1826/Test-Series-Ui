@@ -1,0 +1,267 @@
+.time-analysis-chart {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.6s ease;
+}
+
+.chart-title {
+    color: #333;
+    font-size: 1.5rem;
+    margin: 0 0 1.5rem 0;
+    font-weight: 700;
+    text-align: center;
+}
+
+.time-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.time-stat-card {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+}
+
+.time-stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.time-stat-card.fast {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+}
+
+.time-stat-card.slow {
+    background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+}
+
+.time-stat-card .stat-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.time-stat-card .stat-content {
+    flex: 1;
+}
+
+.time-stat-card .stat-label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.time-stat-card .stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.chart-container {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.custom-tooltip {
+    background: white;
+    border: 2px solid #667eea;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.tooltip-title {
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 0.5rem 0;
+    font-size: 0.95rem;
+}
+
+.tooltip-time {
+    color: #666;
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.tooltip-status {
+    margin: 0;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.tooltip-status.slow {
+    color: #F44336;
+}
+
+.tooltip-status.fast {
+    color: #4CAF50;
+}
+
+.tooltip-status.normal {
+    color: #2196F3;
+}
+
+.time-tips {
+    margin-top: 2rem;
+}
+
+.tips-title {
+    color: #333;
+    font-size: 1.2rem;
+    margin: 0 0 1rem 0;
+    font-weight: 700;
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.tip-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    border-radius: 12px;
+    border-left: 4px solid;
+    transition: all 0.3s ease;
+}
+
+.tip-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tip-card.warning {
+    background: #fff3e0;
+    border-color: #FF9800;
+}
+
+.tip-card.info {
+    background: #e3f2fd;
+    border-color: #2196F3;
+}
+
+.tip-card.success {
+    background: #e8f5e9;
+    border-color: #4CAF50;
+}
+
+.tip-card.general {
+    background: #f3e5f5;
+    border-color: #9C27B0;
+}
+
+.tip-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.tip-content {
+    flex: 1;
+}
+
+.tip-content strong {
+    display: block;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.tip-content p {
+    margin: 0;
+    color: #666;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.time-legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.legend-color.fast {
+    background: #4CAF50;
+}
+
+.legend-color.normal {
+    background: #2196F3;
+}
+
+.legend-color.slow {
+    background: #F44336;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .time-analysis-chart {
+        padding: 1.5rem;
+        margin: 1rem 0;
+    }
+
+    .time-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .chart-container {
+        padding: 1rem;
+    }
+
+    .tips-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .time-legend {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .time-stats-grid {
+        grid-template-columns: 1fr;
+    }
+}

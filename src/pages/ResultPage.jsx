@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { examAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import RankPercentileCard from '../components/RankPercentileCard';
+import SubjectWiseAnalysis from '../components/SubjectWiseAnalysis';
+import TimeAnalysisChart from '../components/TimeAnalysisChart';
+import DownloadReportButton from '../components/DownloadReportButton';
 import './ResultPage.css';
 
 const ResultPage = () => {
     const { examId } = useParams();
     const [result, setResult] = useState(null);
+    const [analytics, setAnalytics] = useState(null);
     const [loading, setLoading] = useState(true);
     const [showDetails, setShowDetails] = useState(false);
     const navigate = useNavigate();
@@ -20,6 +25,18 @@ const ResultPage = () => {
         try {
             const response = await examAPI.getResult(examId, user.id);
             setResult(response.data);
+
+            // Fetch analytics (rank, percentile, etc.)
+            try {
+                const analyticsResponse = await fetch(`http://localhost:8080/api/analytics/exam/${examId}/detailed`);
+                if (analyticsResponse.ok) {
+                    const analyticsData = await analyticsResponse.json();
+                    setAnalytics(analyticsData);
+                }
+            } catch (err) {
+                console.error('Failed to load analytics:', err);
+                // Analytics is optional, don't fail the whole page
+            }
         } catch (err) {
             alert('Failed to load result');
             navigate('/results');
@@ -117,6 +134,25 @@ const ResultPage = () => {
                         </div>
                     </div>
                 </div>
+
+                {/* Analytics Section */}
+                {analytics && <RankPercentileCard analytics={analytics} />}
+
+                {/* Subject-Wise Analysis */}
+                {analytics && analytics.subjectPerformance && (
+                    <SubjectWiseAnalysis subjectPerformance={analytics.subjectPerformance} />
+                )}
+
+                {/* Time Analysis */}
+                {analytics && analytics.timeAnalysis && (
+                    <TimeAnalysisChart timeAnalysis={analytics.timeAnalysis} />
+                )}
+
+                {/* Download PDF Report */}
+                <DownloadReportButton
+                    examAttemptId={examId}
+                    testSeriesTitle={result.testSeriesTitle}
+                />
 
                 <div className="result-actions">
                     <button

@@ -43,6 +43,14 @@ export const analyticsAPI = {
   getPercentile: (examAttemptId) => api.get(`/analytics/exam/${examAttemptId}/percentile`),
   getTestStatistics: (testSeriesId) => api.get(`/analytics/test-series/${testSeriesId}/statistics`),
   getDetailedAnalytics: (examAttemptId) => api.get(`/analytics/exam/${examAttemptId}/detailed`),
+  getWeeklyProgress: (userId) => api.get(`/analytics/user/${userId}/weekly-progress`),
+};
+
+// User API
+export const userAPI = {
+  getProfile: (userId) => api.get(`/users/${userId}`),
+  updateProfile: (userId, data) => api.put(`/users/${userId}`, data),
+  updateGoal: (userId, weeklyGoal) => api.post(`/users/${userId}/goal`, { weeklyGoal }),
 };
 
 // Category API
