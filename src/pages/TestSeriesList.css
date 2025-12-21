@@ -126,6 +126,26 @@
     font-weight: 600;
 }
 
+.test-actions {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.test-actions .btn {
+    flex: 1;
+}
+
+.test-actions .btn-secondary {
+    background: #f0f4ff;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.test-actions .btn-secondary:hover {
+    background: #667eea;
+    color: white;
+}
+
 /* Empty State */
 .empty-state {
     text-align: center;

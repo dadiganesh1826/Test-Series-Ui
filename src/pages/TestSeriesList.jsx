@@ -101,12 +101,20 @@ const TestSeriesList = () => {
                                 <div className="passing-info">
                                     Passing Marks: <strong>{test.passingMarks}</strong>
                                 </div>
-                                <button
-                                    onClick={() => handleStartExam(test.id)}
-                                    className="btn btn-primary"
-                                >
-                                    Start Test
-                                </button>
+                                <div className="test-actions">
+                                    <button
+                                        onClick={() => navigate(`/practice/${test.id}`)}
+                                        className="btn btn-secondary"
+                                    >
+                                        🎯 Practice Mode
+                                    </button>
+                                    <button
+                                        onClick={() => handleStartExam(test.id)}
+                                        className="btn btn-primary"
+                                    >
+                                        Start Test
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     ))}

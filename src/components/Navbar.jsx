@@ -25,9 +25,14 @@ const Navbar = () => {
                         <>
                             <Link to="/dashboard" className="nav-link">Dashboard</Link>
                             <Link to="/test-series" className="nav-link">Test Series</Link>
+                            <Link to="/practice/topic" className="nav-link">🎯 Practice</Link>
                             <Link to="/results" className="nav-link">My Results</Link>
+                            <Link to="/bookmarks" className="nav-link">🔖 Bookmarks</Link>
+                            <Link to="/leaderboard" className="nav-link">🏆 Leaderboard</Link>
                             <div className="user-menu">
-                                <span className="user-name">{user?.name}</span>
+                                <Link to="/profile" className="user-profile-link">
+                                    👤 <span className="user-name">{user?.name}</span>
+                                </Link>
                                 <button onClick={logout} className="btn btn-secondary btn-sm">Logout</button>
                             </div>
                         </>

@@ -1,0 +1,307 @@
+/* Admin CSS - Binance Theme & Layout Fixes */
+:root {
+    /* Brand Colors */
+    --primary: #FCD535;
+    /* Binance Yellow */
+    --primary-hover: #F0B90B;
+    --primary-light: #FEF6D8;
+
+    /* Semantic Colors */
+    --success: #0ECB81;
+    --warning: #FCD535;
+    --danger: #F6465D;
+
+    /* Neutrals */
+    --bg-body-admin: #FAFAFA;
+    --bg-surface: #FFFFFF;
+
+    --sidebar-bg: #FFFFFF;
+    --sidebar-text: #707A8A;
+    --sidebar-hover: #F5F5F5;
+
+    --text-main: #1E2329;
+    --text-secondary: #474D57;
+    --text-tertiary: #707A8A;
+
+    --border-main: #EAECEF;
+    --border-light: #FAFAFA;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Scoped Layout Reset */
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg-body-admin);
+    width: 100%;
+    position: relative;
+    font-family: 'IBM Plex Sans', 'Inter', sans-serif;
+    color: var(--text-main);
+}
+
+/* Sidebar - Fixed Layer */
+.admin-sidebar {
+    width: 250px;
+    background: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1000;
+    /* High Z-Index to stay on top */
+    border-right: 1px solid var(--border-main);
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    height: 72px;
+    /* Smoother visual */
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    border-bottom: 1px solid var(--border-main);
+}
+
+.sidebar-brand {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1E2329;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
+}
+
+.sidebar-menu {
+    padding: 24px 16px;
+    flex: 1;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 4px;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    margin-bottom: 4px;
+    transition: all 0.2s;
+    font-weight: 500;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.menu-item:hover {
+    background: var(--sidebar-hover);
+    color: var(--text-main);
+}
+
+.menu-item.active {
+    background: var(--primary-light);
+    color: #B38600;
+    /* Darker Gold for visibility */
+    font-weight: 600;
+}
+
+/* Main Content Area */
+.admin-main {
+    flex: 1;
+    margin-left: 250px;
+    /* Space for Sidebar */
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    /* Critical flex fix for overflow */
+    position: relative;
+    width: calc(100% - 250px);
+}
+
+.admin-topbar {
+    height: 72px;
+    /* Increased height to stop crushing */
+    background: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 32px;
+    border-bottom: 1px solid var(--border-main);
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    width: 100%;
+}
+
+/* Header Text Styles - FIXED OVERLAP */
+.topbar-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.topbar-title span {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 3px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.topbar-title h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0;
+    line-height: normal;
+}
+
+.topbar-actions {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.admin-content {
+    padding: 32px;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Cards */
+.admin-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border-main);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.admin-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Tables */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th {
+    text-align: left;
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: 12px 16px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border-main);
+    white-space: nowrap;
+}
+
+.admin-table td {
+    padding: 16px;
+    color: var(--text-main);
+    font-size: 14px;
+    border-bottom: 1px solid var(--border-main);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #FCD535;
+    color: #1E2329;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #F0B90B;
+}
+
+.btn-secondary {
+    background-color: #EAECEF;
+    color: #1E2329;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-secondary:hover {
+    background-color: #D5D7DA;
+}
+
+/* Grid Layouts */
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 24px;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 24px;
+}
+
+/* Modal Fix */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    backdrop-filter: blur(2px);
+}
+
+.modal-content {
+    background: #FFFFFF;
+    padding: 32px;
+    border-radius: 8px;
+    width: 600px;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
