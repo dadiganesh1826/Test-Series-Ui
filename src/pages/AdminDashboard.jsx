@@ -29,10 +29,15 @@ const AdminDashboard = () => {
     const fetchDashboardData = async () => {
         try {
             setLoading(true);
+            const token = localStorage.getItem('adminToken');
+            const config = {
+                headers: { Authorization: `Bearer ${token}` }
+            };
+
             const [statsRes, activityRes, growthRes] = await Promise.all([
-                axios.get('http://localhost:8080/api/admin/stats'),
-                axios.get('http://localhost:8080/api/admin/recent-activity'),
-                axios.get('http://localhost:8080/api/admin/analytics/user-growth')
+                axios.get('http://localhost:8080/api/admin/stats', config),
+                axios.get('http://localhost:8080/api/admin/recent-activity', config),
+                axios.get('http://localhost:8080/api/admin/analytics/user-growth', config)
             ]);
             setStats(statsRes.data);
             setActivity(activityRes.data);
@@ -123,15 +128,27 @@ const AdminDashboard = () => {
     );
 };
 
-// Simplified Stat Card for Binance Theme
-const StatCard = ({ icon, title, value }) => (
-    <div className="admin-card" style={{ display: 'flex', flexDirection: 'column', gap: '12px', padding: '24px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-            <p style={{ margin: 0, color: '#707A8A', fontSize: '14px', fontWeight: '500' }}>{title}</p>
-            <div style={{ color: '#FCD535' }}>{icon}</div>
+// Enhanced Stat Card for Binance Theme
+const StatCard = ({ icon, title, value }) => {
+    // Determine color based on title (simple heuristic for demo)
+    let iconColor = '#FCD535';
+    let iconBg = 'rgba(252, 213, 53, 0.1)';
+
+    if (title.includes('Users')) { iconColor = '#0ECB81'; iconBg = 'rgba(14, 203, 129, 0.1)'; } // Green
+    if (title.includes('Exams')) { iconColor = '#F6465D'; iconBg = 'rgba(246, 70, 93, 0.1)'; } // Red/Pink
+    if (title.includes('Series')) { iconColor = '#FCD535'; iconBg = 'rgba(252, 213, 53, 0.1)'; } // Yellow
+
+    return (
+        <div className="stat-card-enhanced">
+            <div className="stat-icon-wrapper" style={{ background: iconBg, color: iconColor }}>
+                {React.cloneElement(icon, { size: 24, color: iconColor })}
+            </div>
+            <div>
+                <h3 className="stat-value">{value}</h3>
+                <p className="stat-label">{title}</p>
+            </div>
         </div>
-        <h3 style={{ margin: 0, color: '#1E2329', fontSize: '24px', fontWeight: '600' }}>{value}</h3>
-    </div>
-);
+    );
+};
 
 export default AdminDashboard;

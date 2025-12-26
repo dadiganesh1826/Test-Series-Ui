@@ -1,6 +1,6 @@
 import React from 'react';
 import Sidebar from './Sidebar';
-import { Search } from 'lucide-react';
+import { Search, ChevronDown } from 'lucide-react';
 import './Admin.css';
 
 const AdminLayout = ({ children, title, subtitle }) => {
@@ -17,11 +17,12 @@ const AdminLayout = ({ children, title, subtitle }) => {
                     <div className="topbar-actions">
                         <div className="search-bar-admin">
                             <Search size={18} color="#707A8A" />
-                            <input type="text" placeholder="Search..." />
+                            <input type="text" placeholder="Search anything..." />
                         </div>
                         <div className="admin-profile">
                             <div className="admin-avatar">A</div>
-                            <span style={{ fontWeight: '500', fontSize: '14px', color: 'var(--text-main)' }}>Admin</span>
+                            <span style={{ fontWeight: '600', fontSize: '14px', color: 'var(--text-main)' }}>Admin User</span>
+                            <ChevronDown size={16} color="#707A8A" />
                         </div>
                     </div>
                 </header>

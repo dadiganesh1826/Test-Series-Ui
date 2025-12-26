@@ -4,7 +4,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import AdminLayout from '../components/Admin/AdminLayout';
 import { Plus, Search, BookOpen, Database, Trash2, AlertCircle } from 'lucide-react';
-import '../components/Admin/Admin.css'; // Ensure styles are loaded
+import '../components/Admin/Admin.css';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const AdminQuestionBank = () => {
     const navigate = useNavigate();
@@ -31,6 +33,50 @@ const AdminQuestionBank = () => {
         subjectId: '',
         topicId: ''
     });
+
+    const quillRef = React.useRef(null);
+
+    const imageHandler = React.useCallback(() => {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+
+        input.onchange = async () => {
+            const file = input.files[0];
+            if (!file) return;
+
+            const uploadData = new FormData();
+            uploadData.append('file', file);
+
+            try {
+                const response = await axios.post('http://localhost:8080/api/upload/image', uploadData);
+                const url = response.data.url;
+
+                const quill = quillRef.current.getEditor();
+                const range = quill.getSelection(true);
+                quill.insertEmbed(range.index, 'image', url);
+            } catch (error) {
+                console.error('Error uploading image:', error);
+                toast.error('Failed to upload image');
+            }
+        };
+    }, []);
+
+    const modules = React.useMemo(() => ({
+        toolbar: {
+            container: [
+                [{ 'header': [1, 2, false] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                ['link', 'image', 'code-block'],
+                ['clean']
+            ],
+            handlers: {
+                image: imageHandler
+            }
+        }
+    }), [imageHandler]);
 
     useEffect(() => {
         const adminToken = localStorage.getItem('adminToken');
@@ -76,6 +122,18 @@ const AdminQuestionBank = () => {
         } catch (error) {
             console.error('Error updating status:', error);
             toast.error('Failed to update status');
+        }
+    };
+
+    const handleDeleteQuestion = async (id) => {
+        if (!window.confirm('Are you sure you want to delete this question?')) return;
+        try {
+            await axios.delete(`http://localhost:8080/api/admin/content/questions/${id}`);
+            toast.success('Question deleted successfully');
+            fetchData();
+        } catch (error) {
+            console.error('Error deleting question:', error);
+            toast.error('Failed to delete question');
         }
     };
 
@@ -211,12 +269,32 @@ const AdminQuestionBank = () => {
                                 <tr><td colSpan="5" style={{ textAlign: 'center', padding: '32px', color: 'var(--gray)' }}>No questions found in global bank</td></tr>
                             ) : filteredQuestions.map(q => (
                                 <tr key={q.id}>
-                                    <td><div dangerouslySetInnerHTML={{ __html: q.questionText.substring(0, 100) + '...' }} /></td>
+                                    <td><div dangerouslySetInnerHTML={{ __html: q.questionText.substring(0, 150) + (q.questionText.length > 150 ? '...' : '') }} /></td>
                                     <td><span className="badge badge-info">{q.difficulty || 'Medium'}</span></td>
                                     <td>{q.marks}</td>
                                     <td><span className={`badge ${q.status === 'APPROVED' ? 'badge-success' : 'badge-warning'}`}>{q.status || 'APPROVED'}</span></td>
                                     <td>
-                                        <button className="btn-outline" style={{ border: 'none', color: 'var(--danger)' }}>
+                                        <button
+                                            className="btn"
+                                            style={{
+                                                background: 'rgba(246, 70, 93, 0.1)',
+                                                color: '#F6465D',
+                                                border: 'none',
+                                                padding: '8px',
+                                                height: '36px',
+                                                width: '36px',
+                                                minWidth: '36px',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius: '6px'
+                                            }}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleDeleteQuestion(q.id);
+                                            }}
+                                            title="Delete Question"
+                                        >
                                             <Trash2 size={18} />
                                         </button>
                                     </td>
@@ -268,21 +346,30 @@ const AdminQuestionBank = () => {
                 </div>
             )}
 
-            {/* Modal - Simplified styling */}
+            {/* Modal - Rich Text Enabled */}
             {showModal && (
                 <div className="modal-overlay">
-                    <div className="modal-content" style={{ maxWidth: '800px' }}>
+                    <div className="modal-content" style={{ maxWidth: '900px', width: '90%' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '24px' }}>
-                            <h3 style={{ margin: 0, color: 'var(--dark)' }}>Add to Question Bank</h3>
+                            <h3 style={{ margin: 0, color: 'var(--dark)' }}>Add Global Question</h3>
                             <button onClick={() => setShowModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.5rem', color: 'var(--gray)' }}>&times;</button>
                         </div>
                         <form onSubmit={handleCreateGlobalQuestion}>
                             <div className="form-group">
-                                <label>Question Text</label>
-                                <textarea className="form-control" rows="3" value={formData.questionText} onChange={e => setFormData({ ...formData, questionText: e.target.value })} required />
+                                <label>Question Content (Rich Text)</label>
+                                <div style={{ height: '200px', marginBottom: '50px' }}>
+                                    <ReactQuill
+                                        ref={quillRef}
+                                        theme="snow"
+                                        value={formData.questionText}
+                                        onChange={value => setFormData({ ...formData, questionText: value })}
+                                        modules={modules}
+                                        style={{ height: '100%' }}
+                                    />
+                                </div>
                             </div>
 
-                            <div className="grid-2">
+                            <div className="grid-2" style={{ gridTemplateColumns: '1fr 1fr', marginTop: '20px' }}>
                                 <div className="form-group">
                                     <label>Subject</label>
                                     <select className="form-control" value={formData.subjectId} onChange={e => setFormData({ ...formData, subjectId: e.target.value, topicId: '' })}>
@@ -317,7 +404,20 @@ const AdminQuestionBank = () => {
                                 <div className="form-group"><label>Neg. Marks</label><input type="number" step="0.25" className="form-control" value={formData.negativeMarks} onChange={e => setFormData({ ...formData, negativeMarks: e.target.value })} /></div>
                             </div>
 
-                            <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>Add Question</button>
+                            <div className="form-group">
+                                <label>Explanation (Rich Text)</label>
+                                <div style={{ height: '150px', marginBottom: '50px' }}>
+                                    <ReactQuill
+                                        theme="snow"
+                                        value={formData.explanation}
+                                        onChange={value => setFormData({ ...formData, explanation: value })}
+                                        modules={modules}
+                                        style={{ height: '100%' }}
+                                    />
+                                </div>
+                            </div>
+
+                            <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '20px' }}>Add Question</button>
                         </form>
                     </div>
                 </div>

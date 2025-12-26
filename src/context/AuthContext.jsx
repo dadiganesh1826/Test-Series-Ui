@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import axios from 'axios';
 
 const AuthContext = createContext(null);
 
@@ -14,6 +15,25 @@ export const AuthProvider = ({ children }) => {
         }
         setLoading(false);
     }, []);
+
+    // Heartbeat to keep user active
+    useEffect(() => {
+        if (!user) return;
+
+        const sendHeartbeat = async () => {
+            try {
+                await axios.put(`http://localhost:8080/api/users/${user.id}/activity`);
+            } catch (error) {
+                // Silently fail for heartbeat
+                console.error("Heartbeat failed", error);
+            }
+        };
+
+        sendHeartbeat(); // Send immediately on login/load
+        const interval = setInterval(sendHeartbeat, 5 * 60 * 1000); // And every 5 mins
+
+        return () => clearInterval(interval);
+    }, [user]);
 
     const login = (userData) => {
         setUser(userData);

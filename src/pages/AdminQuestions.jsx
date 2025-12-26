@@ -85,6 +85,42 @@ const AdminQuestions = () => {
         }
     };
 
+    const [showImportModal, setShowImportModal] = useState(false);
+    const [globalQuestions, setGlobalQuestions] = useState([]);
+    const [selectedQuestions, setSelectedQuestions] = useState([]);
+
+    const fetchGlobalQuestions = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/api/admin/content/questions/bank');
+            setGlobalQuestions(response.data);
+        } catch (error) {
+            console.error('Error fetching global questions:', error);
+        }
+    };
+
+    const handleImportQuestions = async () => {
+        if (selectedQuestions.length === 0) {
+            alert('Please select questions to import');
+            return;
+        }
+        try {
+            await axios.post(`http://localhost:8080/api/test-series/${testSeriesId}/questions/import`, selectedQuestions);
+            alert('Questions imported successfully!'); // Simple alert for now, can be toast
+            setShowImportModal(false);
+            setSelectedQuestions([]);
+            fetchData(); // Refresh list
+        } catch (error) {
+            console.error('Error importing questions:', error);
+            alert('Failed to import questions');
+        }
+    };
+
+    const toggleQuestionSelection = (id) => {
+        setSelectedQuestions(prev =>
+            prev.includes(id) ? prev.filter(qId => qId !== id) : [...prev, id]
+        );
+    };
+
     if (loading) {
         return (
             <AdminLayout title="Questions">
@@ -111,9 +147,19 @@ const AdminQuestions = () => {
                         🔄 Refresh
                     </button>
                     <button
+                        className="import-btn"
+                        onClick={() => {
+                            fetchGlobalQuestions();
+                            setShowImportModal(true);
+                        }}
+                        style={{ padding: '10px 20px', background: '#FCD535', color: '#1E2329', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold' }}
+                    >
+                        ⬇ Import from Bank
+                    </button>
+                    <button
                         className="create-btn"
                         onClick={() => setShowCreateModal(true)}
-                        style={{ padding: '10px 20px', background: '#4318ff', color: 'white', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold' }}
+                        style={{ padding: '10px 20px', background: '#1E2329', color: '#FCD535', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold' }}
                     >
                         ➕ Add Question
                     </button>
@@ -143,7 +189,7 @@ const AdminQuestions = () => {
                             </div>
 
                             <p style={{ fontSize: '16px', color: '#2b3674', fontWeight: '500', marginBottom: '20px' }}>
-                                {q.questionText}
+                                <div dangerouslySetInnerHTML={{ __html: q.questionText }} />
                             </p>
 
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '20px' }}>
@@ -162,7 +208,7 @@ const AdminQuestions = () => {
 
                             {q.explanation && (
                                 <div style={{ background: '#fff8e1', padding: '15px', borderRadius: '10px', marginBottom: '15px', fontSize: '14px' }}>
-                                    <strong style={{ color: '#ffce20' }}>Explanation:</strong> <span style={{ color: '#2b3674' }}>{q.explanation}</span>
+                                    <strong style={{ color: '#F0B90B' }}>Explanation:</strong> <div dangerouslySetInnerHTML={{ __html: q.explanation }} />
                                 </div>
                             )}
 
@@ -178,6 +224,64 @@ const AdminQuestions = () => {
                     ))
                 )}
             </div>
+
+            {/* Import Modal */}
+            {showImportModal && (
+                <div style={{
+                    position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                    background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000
+                }} onClick={() => setShowImportModal(false)}>
+                    <div style={{
+                        background: 'white', padding: '30px', borderRadius: '20px', width: '800px', maxWidth: '90%',
+                        maxHeight: '90vh', display: 'flex', flexDirection: 'column'
+                    }} onClick={(e) => e.stopPropagation()}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                            <h2 style={{ margin: 0, color: '#2b3674' }}>Import from Global Bank</h2>
+                            <button onClick={() => setShowImportModal(false)} style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer', color: '#a3aed0' }}>×</button>
+                        </div>
+
+                        <div style={{ flex: 1, overflowY: 'auto', marginBottom: '20px', border: '1px solid #EAECEF', borderRadius: '8px' }}>
+                            <table className="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th style={{ width: '50px' }}>Select</th>
+                                        <th>Question</th>
+                                        <th>Marks</th>
+                                        <th>Difficulty</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {globalQuestions.map(q => (
+                                        <tr key={q.id} className={selectedQuestions.includes(q.id) ? 'selected-row' : ''} style={{ background: selectedQuestions.includes(q.id) ? '#FEF6D8' : 'white' }}>
+                                            <td style={{ textAlign: 'center' }}>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={selectedQuestions.includes(q.id)}
+                                                    onChange={() => toggleQuestionSelection(q.id)}
+                                                    style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+                                                />
+                                            </td>
+                                            <td><div dangerouslySetInnerHTML={{ __html: q.questionText.substring(0, 100) + '...' }} /></td>
+                                            <td>{q.marks}</td>
+                                            <td><span className="badge badge-info">{q.difficulty || 'Medium'}</span></td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+                            <span style={{ alignSelf: 'center', marginRight: 'auto', color: '#707A8A' }}>
+                                {selectedQuestions.length} selected
+                            </span>
+                            <button onClick={() => setShowImportModal(false)} style={{ padding: '10px 20px', border: 'none', background: '#EAECEF', color: '#1E2329', borderRadius: '10px', cursor: 'pointer' }}>Cancel</button>
+                            <button onClick={handleImportQuestions} style={{ padding: '10px 20px', border: 'none', background: '#FCD535', color: '#1E2329', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold' }}>
+                                Import Selected
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Create Modal */}
             {showCreateModal && (
