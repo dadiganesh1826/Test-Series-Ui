@@ -77,42 +77,43 @@ const TestSeriesList = () => {
                                 <div className="stat">
                                     <span className="stat-icon">⏱️</span>
                                     <div>
-                                        <div className="stat-value">{test.durationMinutes} min</div>
-                                        <div className="stat-label">Duration</div>
+                                        <div className="stat-value">{test.durationMinutes}m</div>
+                                        <div className="stat-label">Time</div>
                                     </div>
                                 </div>
                                 <div className="stat">
                                     <span className="stat-icon">📝</span>
                                     <div>
                                         <div className="stat-value">{test.questions?.length || 0}</div>
-                                        <div className="stat-label">Questions</div>
+                                        <div className="stat-label">Qs</div>
                                     </div>
                                 </div>
                                 <div className="stat">
                                     <span className="stat-icon">🎯</span>
                                     <div>
                                         <div className="stat-value">{test.totalMarks}</div>
-                                        <div className="stat-label">Total Marks</div>
+                                        <div className="stat-label">Marks</div>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="test-card-footer">
                                 <div className="passing-info">
-                                    Passing Marks: <strong>{test.passingMarks}</strong>
+                                    Pass: <strong>{test.passingMarks}</strong>
                                 </div>
                                 <div className="test-actions">
                                     <button
                                         onClick={() => navigate(`/practice/${test.id}`)}
-                                        className="btn btn-secondary"
+                                        className="btn btn-outline-secondary btn-sm"
+                                        title="Practice Mode"
                                     >
-                                        🎯 Practice Mode
+                                        Practice
                                     </button>
                                     <button
                                         onClick={() => handleStartExam(test.id)}
-                                        className="btn btn-primary"
+                                        className="btn btn-primary btn-sm"
                                     >
-                                        Start Test
+                                        Start
                                     </button>
                                 </div>
                             </div>

@@ -321,9 +321,15 @@
 
 .question-palette {
     display: flex;
+    flex-direction: row !important;
+    /* Force row layout */
     gap: 0.5rem;
     flex-wrap: wrap;
+    /* Allow wrapping only if needed */
     justify-content: center;
+    flex: 1;
+    margin: 0 1rem;
+    width: auto;
 }
 
 .palette-item {

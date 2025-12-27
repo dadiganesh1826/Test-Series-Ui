@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Users, GraduationCap, BookOpen, Library, FileQuestion, BarChart2, LogOut, Hexagon } from 'lucide-react';
+import { LayoutDashboard, Users, GraduationCap, BookOpen, Library, FileQuestion, BarChart2, LogOut, Hexagon, Book, List } from 'lucide-react';
 import './Admin.css';
 
 const Sidebar = () => {
@@ -19,6 +19,8 @@ const Sidebar = () => {
         { path: '/admin/courses', icon: <BookOpen size={20} />, label: 'Courses' },
         { path: '/admin/test-series', icon: <Library size={20} />, label: 'Test Series' },
         { path: '/admin/questions', icon: <FileQuestion size={20} />, label: 'Question Bank' },
+        { path: '/admin/subjects', icon: <Book size={20} />, label: 'Subjects' },
+        { path: '/admin/topics', icon: <List size={20} />, label: 'Topics' },
         { path: '/admin/analytics', icon: <BarChart2 size={20} />, label: 'Analytics' },
     ];
 

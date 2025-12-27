@@ -24,6 +24,9 @@ import AdminCategories from './pages/AdminCategories';
 import AdminAnalytics from './pages/AdminAnalytics';
 import AdminExams from './pages/AdminExams';
 import AdminCourses from './pages/AdminCourses';
+import AdminSubjects from './pages/AdminSubjects';
+import AdminTopics from './pages/AdminTopics';
+import AdminTopicQuestions from './pages/AdminTopicQuestions';
 import BookmarksPage from './pages/BookmarksPage';
 import TopicPractice from './pages/TopicPractice';
 import UserProfile from './pages/UserProfile';
@@ -261,6 +264,30 @@ function AppContent() {
                             element={
                                 <AdminProtectedRoute>
                                     <AdminCourses />
+                                </AdminProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/admin/subjects"
+                            element={
+                                <AdminProtectedRoute>
+                                    <AdminSubjects />
+                                </AdminProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/admin/topics"
+                            element={
+                                <AdminProtectedRoute>
+                                    <AdminTopics />
+                                </AdminProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/admin/topics/:id/questions"
+                            element={
+                                <AdminProtectedRoute>
+                                    <AdminTopicQuestions />
                                 </AdminProtectedRoute>
                             }
                         />
