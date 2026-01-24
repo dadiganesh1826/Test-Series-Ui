@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import API_BASE_URL from '../config/api'
+import API_BASE_URL from '../config/api';
 import axios from 'axios';
-import API_BASE_URL from '../config/api'
 import { useAuth } from '../context/AuthContext';
-import API_BASE_URL from '../config/api'
 import { Link } from 'react-router-dom';
-import API_BASE_URL from '../config/api'
 import './BookmarksPage.css';
-import API_BASE_URL from '../config/api'
 
 const BookmarksPage = () => {
     const { user } = useAuth();

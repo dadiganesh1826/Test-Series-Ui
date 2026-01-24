@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import API_BASE_URL from '../config/api'
+import API_BASE_URL from '../config/api';
 import { useNavigate, useParams } from 'react-router-dom';
-import API_BASE_URL from '../config/api'
 import axios from 'axios';
-import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
-import API_BASE_URL from '../config/api'
 // import './AdminQuestions.css'; // Removed old CSS
 
 const AdminQuestions = () => {
@@ -90,7 +87,6 @@ const AdminQuestions = () => {
     };
 
     const [showImportModal, setShowImportModal] = useState(false);
-import API_BASE_URL from '../config/api'
     const [globalQuestions, setGlobalQuestions] = useState([]);
     const [selectedQuestions, setSelectedQuestions] = useState([]);
 
@@ -106,22 +102,17 @@ import API_BASE_URL from '../config/api'
     const handleImportQuestions = async () => {
         if (selectedQuestions.length === 0) {
             alert('Please select questions to import');
-import API_BASE_URL from '../config/api'
             return;
         }
         try {
             await axios.post(`${API_BASE_URL}/test-series/${testSeriesId}/questions/import`, selectedQuestions);
-import API_BASE_URL from '../config/api'
             alert('Questions imported successfully!'); // Simple alert for now, can be toast
             setShowImportModal(false);
-import API_BASE_URL from '../config/api'
             setSelectedQuestions([]);
             fetchData(); // Refresh list
         } catch (error) {
             console.error('Error importing questions:', error);
-import API_BASE_URL from '../config/api'
             alert('Failed to import questions');
-import API_BASE_URL from '../config/api'
         }
     };
 
@@ -161,7 +152,6 @@ import API_BASE_URL from '../config/api'
                         onClick={() => {
                             fetchGlobalQuestions();
                             setShowImportModal(true);
-import API_BASE_URL from '../config/api'
                         }}
                         style={{ padding: '10px 20px', background: '#FCD535', color: '#1E2329', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold' }}
                     >

@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import API_BASE_URL from '../config/api'
+import API_BASE_URL from '../config/api';
 import axios from 'axios';
-import API_BASE_URL from '../config/api'
 import { Plus, Edit2, Trash2 } from 'lucide-react';
-import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
-import API_BASE_URL from '../config/api'
 import '../components/Admin/Admin.css';
-import API_BASE_URL from '../config/api'
 
 const AdminSubjects = () => {
     const [subjects, setSubjects] = useState([]);

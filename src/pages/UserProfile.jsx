@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import API_BASE_URL from '../config/api'
+import API_BASE_URL from '../config/api';
 import axios from 'axios';
-import API_BASE_URL from '../config/api'
 import { useAuth } from '../context/AuthContext';
-import API_BASE_URL from '../config/api'
 import './UserProfile.css';
-import API_BASE_URL from '../config/api'
 
 const UserProfile = () => {
     const { user, login } = useAuth(); // login used to update context if needed

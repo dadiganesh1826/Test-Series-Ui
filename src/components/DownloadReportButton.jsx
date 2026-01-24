@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import API_BASE_URL from '../config/api'
+import API_BASE_URL from '../config/api';
 import axios from 'axios';
-import API_BASE_URL from '../config/api'
 import './DownloadReportButton.css';
-import API_BASE_URL from '../config/api'
 
 const DownloadReportButton = ({ examAttemptId, testSeriesTitle }) => {
     const [downloading, setDownloading] = useState(false);
@@ -17,7 +15,6 @@ const DownloadReportButton = ({ examAttemptId, testSeriesTitle }) => {
 
         try {
             const API_URL = import.meta.env.VITE_API_URL || '${API_BASE_URL}';
-import API_BASE_URL from '../config/api'
             const response = await axios.get(
                 `${API_URL}/reports/exam/${examAttemptId}/pdf`,
                 {

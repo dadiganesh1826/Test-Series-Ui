@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
-import API_BASE_URL from '../config/api'
+import API_BASE_URL from '../config/api';
 import { useNavigate } from 'react-router-dom';
-import API_BASE_URL from '../config/api'
 import axios from 'axios';
-import API_BASE_URL from '../config/api'
 import { Lock, Mail, ArrowRight, AlertCircle, ShieldCheck, Info } from 'lucide-react';
-import API_BASE_URL from '../config/api'
 import './AdminLogin.css';
-import API_BASE_URL from '../config/api'
 
 const AdminLogin = () => {
     const navigate = useNavigate();

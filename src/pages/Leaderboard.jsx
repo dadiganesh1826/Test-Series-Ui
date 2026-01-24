@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import API_BASE_URL from '../config/api'
+import API_BASE_URL from '../config/api';
 import axios from 'axios';
-import API_BASE_URL from '../config/api'
 import './Leaderboard.css';
-import API_BASE_URL from '../config/api'
 
 const Leaderboard = () => {
     const [activeTab, setActiveTab] = useState('global');

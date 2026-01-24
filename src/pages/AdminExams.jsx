@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import API_BASE_URL from '../config/api'
+import API_BASE_URL from '../config/api';
 import axios from 'axios';
-import API_BASE_URL from '../config/api'
 import { toast } from 'react-toastify';
-import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
-import API_BASE_URL from '../config/api'
 import { Trash2, Edit, Plus, X } from 'lucide-react';
-import API_BASE_URL from '../config/api'
 
 const AdminExams = () => {
     const [exams, setExams] = useState([]);

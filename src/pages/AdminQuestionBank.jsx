@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import API_BASE_URL from '../config/api'
+import API_BASE_URL from '../config/api';
 import { useNavigate } from 'react-router-dom';
-import API_BASE_URL from '../config/api'
 import axios from 'axios';
-import API_BASE_URL from '../config/api'
 import { toast } from 'react-toastify';
-import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
-import API_BASE_URL from '../config/api'
 import { Plus, Search, BookOpen, Database, Trash2, AlertCircle } from 'lucide-react';
-import API_BASE_URL from '../config/api'
 import '../components/Admin/Admin.css';
-import API_BASE_URL from '../config/api'
 import ReactQuill from 'react-quill';
-import API_BASE_URL from '../config/api'
 import 'react-quill/dist/quill.snow.css';
-import API_BASE_URL from '../config/api'
 
 const AdminQuestionBank = () => {
     const navigate = useNavigate();

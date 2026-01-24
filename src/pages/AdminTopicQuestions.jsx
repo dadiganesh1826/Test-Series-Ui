@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import API_BASE_URL from '../config/api'
+import API_BASE_URL from '../config/api';
 import { useParams, useNavigate } from 'react-router-dom';
-import API_BASE_URL from '../config/api'
 import axios from 'axios';
-import API_BASE_URL from '../config/api'
 import { Trash2, ArrowLeft } from 'lucide-react';
-import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
-import API_BASE_URL from '../config/api'
 import '../components/Admin/Admin.css';
-import API_BASE_URL from '../config/api'
 
 const AdminTopicQuestions = () => {
     const { id } = useParams();
