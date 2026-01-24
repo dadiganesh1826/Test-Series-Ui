@@ -31,18 +31,21 @@
 }
 
 .palette-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    /* 4 Columns is safer */
-    gap: 12px;
-    margin-bottom: 24px;
-    overflow-y: auto;
-    flex: 1;
-    /* Grow to fill available space */
-    min-height: 0;
-    /* Crucial for nested flex scrolling */
-    align-content: start;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    /* Stack items at the top */
+    gap: 8px;
+    /* Consistent gap */
     padding: 4px;
+    margin-bottom: 24px;
+
+    /* Scroll Logic */
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* FORCE vertical scroll only */
+    flex: 1;
+    min-height: 0;
 }
 
 /* Custom Scrollbar */
@@ -56,18 +59,17 @@
 }
 
 .palette-question {
-    width: 44px;
-    /* Fixed width */
-    height: 44px;
-    /* Fixed height */
-    margin: 0 auto;
-    /* Center in grid cell */
-    /* aspect-ratio: 1; */
-    /* Square */
+    width: 40px;
+    /* Specific fixed width */
+    height: 40px;
+    /* Specific fixed height */
+
+    /* Flex Center Content */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     border: 1px solid transparent;
     border-radius: 4px;
     /* Slightly rounded square */
