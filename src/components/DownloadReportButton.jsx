@@ -13,8 +13,9 @@ const DownloadReportButton = ({ examAttemptId, testSeriesTitle }) => {
         setSuccess(false);
 
         try {
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
             const response = await axios.get(
-                `http://localhost:8080/api/reports/exam/${examAttemptId}/pdf`,
+                `${API_URL}/reports/exam/${examAttemptId}/pdf`,
                 {
                     responseType: 'blob',
                     timeout: 30000 // 30 seconds timeout
