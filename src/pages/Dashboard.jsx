@@ -73,7 +73,7 @@ const Dashboard = () => {
                                 <h3>Continue Learning</h3>
                                 <p>You have {incompleteExams.length} unfinished test(s).</p>
                             </div>
-                            <Link to={`/exam/${incompleteExams[0].testSeries.id}/start`} className="btn btn-primary">
+                            <Link to={`/exam/${incompleteExams[0].testSeries.id}`} className="btn btn-primary">
                                 Resume Test
                             </Link>
                         </div>
@@ -174,7 +174,7 @@ const Dashboard = () => {
                                             <div className="rec-meta">
                                                 <span>{test.totalQuestions} Qs</span> • <span>{test.durationMinutes} Mins</span>
                                             </div>
-                                            <Link to={`/exam/${test.id}/start`} className="btn btn-sm btn-full btn-primary" style={{ marginTop: '12px' }}>
+                                            <Link to={`/exam/${test.id}`} className="btn btn-sm btn-full btn-primary" style={{ marginTop: '12px' }}>
                                                 Start Now
                                             </Link>
                                         </div>

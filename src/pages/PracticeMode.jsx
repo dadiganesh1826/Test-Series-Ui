@@ -93,7 +93,7 @@ const PracticeMode = () => {
 
             // Start practice attempt
             const practiceRes = await axios.post(
-                `http://localhost:8080/api/practice/start/${testId}?userId=${user.id}`
+                `${import.meta.env.VITE_API_URL || 'http://localhost:8080/api'}/practice/start/${testId}?userId=${user.id}`
             );
             setPracticeAttemptId(practiceRes.data.id);
             if (practiceRes.data.limitSeconds) {
