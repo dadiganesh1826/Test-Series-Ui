@@ -32,8 +32,9 @@
 
 .palette-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 Columns is safer */
+    gap: 12px;
     margin-bottom: 24px;
     overflow-y: auto;
     flex: 1;
@@ -41,8 +42,7 @@
     min-height: 0;
     /* Crucial for nested flex scrolling */
     align-content: start;
-    padding-right: 4px;
-    /* Space for scrollbar */
+    padding: 4px;
 }
 
 /* Custom Scrollbar */
@@ -56,7 +56,13 @@
 }
 
 .palette-question {
-    aspect-ratio: 1;
+    width: 44px;
+    /* Fixed width */
+    height: 44px;
+    /* Fixed height */
+    margin: 0 auto;
+    /* Center in grid cell */
+    /* aspect-ratio: 1; */
     /* Square */
     display: flex;
     flex-direction: column;

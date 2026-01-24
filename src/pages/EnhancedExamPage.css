@@ -54,7 +54,8 @@
 /* Main Layout - FORCE GRID */
 .exam-content {
     display: grid;
-    grid-template-columns: 1fr 320px;
+    grid-template-columns: 1fr 360px;
+    /* Widened to 360px */
     /* Explicit columns */
     height: calc(100vh - 64px);
     overflow: hidden;
