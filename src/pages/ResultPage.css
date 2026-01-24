@@ -265,6 +265,12 @@
     margin-bottom: 16px;
 }
 
+.result-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .question-num {
     font-weight: 700;
     color: var(--primary-color);

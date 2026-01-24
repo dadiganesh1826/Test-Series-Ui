@@ -25,6 +25,14 @@ const PracticeMode = () => {
         correct: 0,
         accuracy: 0
     });
+    const [timeLeft, setTimeLeft] = useState(null);
+
+    const formatTime = (seconds) => {
+        if (!seconds && seconds !== 0) return "--:--";
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    };
 
     useEffect(() => {
         // Check if custom practice was passed via state
@@ -35,12 +43,33 @@ const PracticeMode = () => {
         }
     }, [testId, location.state]);
 
+    useEffect(() => {
+        if (timeLeft === null || timeLeft <= 0) return;
+
+        const timer = setInterval(() => {
+            setTimeLeft(prev => {
+                if (prev <= 1) {
+                    clearInterval(timer);
+                    handleTimeUp();
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [timeLeft]);
+
+
     const initCustomPractice = () => {
         const { attempt, questions, title } = location.state;
         if (attempt && questions) {
             setPracticeAttemptId(attempt.id);
             setQuestions(questions);
             setTestSeries({ title: title || 'Custom Practice Session' });
+            if (attempt.limitSeconds) {
+                setTimeLeft(attempt.limitSeconds);
+            }
             setLoading(false);
         } else {
             // Fallback
@@ -67,6 +96,9 @@ const PracticeMode = () => {
                 `http://localhost:8080/api/practice/start/${testId}?userId=${user.id}`
             );
             setPracticeAttemptId(practiceRes.data.id);
+            if (practiceRes.data.limitSeconds) {
+                setTimeLeft(practiceRes.data.limitSeconds);
+            }
 
         } catch (error) {
             console.error('Error starting practice:', error);
@@ -76,8 +108,28 @@ const PracticeMode = () => {
         }
     };
 
+    const [startTime, setStartTime] = useState(Date.now());
+    const [sessionResults, setSessionResults] = useState({});
+    const [timeSpentMap, setTimeSpentMap] = useState({}); // Stores accumulated time for each question
+
+    // Track time when question changes
+    useEffect(() => {
+        const now = Date.now();
+        const prevIndex = currentQuestionIndex; // Capture current index for cleanup closure
+
+        setStartTime(now);
+
+        return () => {
+            // On unmount/change, save the time spent on this question
+            const elapsed = Math.round((Date.now() - now) / 1000);
+            setTimeSpentMap(prev => ({
+                ...prev,
+                [questions[prevIndex]?.id]: (prev[questions[prevIndex]?.id] || 0) + elapsed
+            }));
+        };
+    }, [currentQuestionIndex, questions]);
+
     const handleAnswerSelect = (answer) => {
-        if (feedback) return; // Already answered
         setSelectedAnswer(answer);
     };
 
@@ -87,17 +139,29 @@ const PracticeMode = () => {
             return;
         }
 
+        const currentSessionTime = Math.round((Date.now() - startTime) / 1000);
+        const totalTimeSpent = Math.max(1, (timeSpentMap[questions[currentQuestionIndex].id] || 0) + currentSessionTime);
+
         try {
             const response = await axios.post(
                 `http://localhost:8080/api/practice/${practiceAttemptId}/answer`,
                 {
                     questionId: questions[currentQuestionIndex].id,
                     selectedAnswer: selectedAnswer,
-                    timeSpent: 0
+                    timeSpent: totalTimeSpent
                 }
             );
 
-            setFeedback(response.data);
+            // Store result for final report
+            setSessionResults(prev => ({
+                ...prev,
+                [questions[currentQuestionIndex].id]: {
+                    ...response.data,
+                    timeSpent: totalTimeSpent, // Store accumulated time
+                    userAnswer: selectedAnswer
+                }
+            }));
+
             setAnsweredQuestions(new Set([...answeredQuestions, currentQuestionIndex]));
 
             // Update stats
@@ -106,6 +170,15 @@ const PracticeMode = () => {
                 correct: prev.correct + (response.data.isCorrect ? 1 : 0),
                 accuracy: ((prev.correct + (response.data.isCorrect ? 1 : 0)) / (prev.attempted + 1) * 100).toFixed(1)
             }));
+
+            // Auto-advance or Finish
+            if (currentQuestionIndex < questions.length - 1) {
+                setCurrentQuestionIndex(currentQuestionIndex + 1);
+                setSelectedAnswer(null);
+            } else {
+                // Last question - finish practice
+                handleEndPractice(true);
+            }
 
         } catch (error) {
             console.error('Error submitting answer:', error);
@@ -117,7 +190,6 @@ const PracticeMode = () => {
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
             setSelectedAnswer(null);
-            setFeedback(null);
         }
     };
 
@@ -125,24 +197,35 @@ const PracticeMode = () => {
         if (currentQuestionIndex > 0) {
             setCurrentQuestionIndex(currentQuestionIndex - 1);
             setSelectedAnswer(null);
-            setFeedback(null);
         }
     };
 
-    const handleEndPractice = async () => {
-        if (window.confirm('Are you sure you want to end practice?')) {
-            try {
-                if (practiceAttemptId) {
-                    await axios.post(`http://localhost:8080/api/practice/${practiceAttemptId}/complete`);
+    const onEndClick = () => handleEndPractice(false);
+
+    // Pass sessionResults to handleEndPractice
+    const handleTimeUp = () => {
+        handleEndPractice(true);
+    };
+
+    // Modified handleEndPractice to include rich results
+    const handleEndPractice = async (force = false) => {
+        if (!force && !window.confirm('Are you sure you want to end the practice session?')) {
+            return;
+        }
+
+        try {
+            await axios.post(`http://localhost:8080/api/practice/${practiceAttemptId}/complete`);
+
+            // Navigate with rich data
+            navigate(`/practice/result/${practiceAttemptId}`, {
+                state: {
+                    questions: questions,
+                    sessionResults: sessionResults
                 }
-                // Navigate regardless of API success
-                navigate('/dashboard');
-            } catch (error) {
-                console.error('Error ending practice:', error);
-                // Still navigate even if API fails
-                alert('Practice session ended. Redirecting to dashboard...');
-                navigate('/dashboard');
-            }
+            });
+        } catch (error) {
+            console.error('Error completing practice:', error);
+            navigate('/dashboard');
         }
     };
 
@@ -173,6 +256,17 @@ const PracticeMode = () => {
                     <p>{testSeries?.title}</p>
                 </div>
                 <div className="header-stats">
+                    <div className="stat-badge" style={{
+                        minWidth: '100px',
+                        justifyContent: 'center',
+                        backgroundColor: timeLeft < 60 ? '#fff2f4' : undefined,
+                        borderColor: timeLeft < 60 ? '#f6465d' : undefined
+                    }}>
+                        <span className="stat-label">Time Left</span>
+                        <span className="stat-value" style={{ color: timeLeft < 60 ? '#f6465d' : 'inherit' }}>
+                            {formatTime(timeLeft)}
+                        </span>
+                    </div>
                     <div className="stat-badge">
                         <span className="stat-label">Progress</span>
                         <span className="stat-value">{currentQuestionIndex + 1}/{questions.length}</span>
@@ -206,66 +300,28 @@ const PracticeMode = () => {
                     {['A', 'B', 'C', 'D'].map(option => {
                         const optionText = currentQuestion[`option${option}`];
                         const isSelected = selectedAnswer === option;
-                        const isCorrect = feedback && feedback.correctAnswer === option;
-                        const isWrong = feedback && selectedAnswer === option && !feedback.isCorrect;
 
                         return (
                             <div
                                 key={option}
-                                className={`option ${isSelected ? 'selected' : ''} ${isCorrect ? 'correct' : ''} ${isWrong ? 'wrong' : ''}`}
+                                className={`option ${isSelected ? 'selected' : ''}`}
                                 onClick={() => handleAnswerSelect(option)}
                             >
                                 <div className="option-label">{option}</div>
                                 <div className="option-text">{optionText}</div>
-                                {isCorrect && <span className="option-icon">✓</span>}
-                                {isWrong && <span className="option-icon">✗</span>}
                             </div>
                         );
                     })}
                 </div>
-
-                {/* Feedback Section */}
-                {feedback && (
-                    <div className={`feedback-section ${feedback.isCorrect ? 'correct-feedback' : 'wrong-feedback'}`}>
-                        <div className="feedback-header">
-                            {feedback.isCorrect ? (
-                                <>
-                                    <span className="feedback-icon">🎉</span>
-                                    <h3>Correct!</h3>
-                                </>
-                            ) : (
-                                <>
-                                    <span className="feedback-icon">💡</span>
-                                    <h3>Incorrect</h3>
-                                </>
-                            )}
-                        </div>
-                        <div className="feedback-body">
-                            <p><strong>Correct Answer:</strong> {feedback.correctAnswer}</p>
-                            {feedback.explanation && (
-                                <div className="explanation">
-                                    <strong>Explanation:</strong>
-                                    <p>{feedback.explanation}</p>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                )}
 
                 {/* Note Editor */}
                 <NoteEditor questionId={currentQuestion.id} />
 
                 {/* Action Buttons */}
                 <div className="action-buttons">
-                    {!feedback ? (
-                        <button className="submit-btn" onClick={handleSubmitAnswer}>
-                            Submit Answer
-                        </button>
-                    ) : (
-                        <button className="next-btn" onClick={handleNext}>
-                            {currentQuestionIndex < questions.length - 1 ? 'Next Question →' : 'Review'}
-                        </button>
-                    )}
+                    <button className="submit-btn" onClick={handleSubmitAnswer}>
+                        {currentQuestionIndex === questions.length - 1 ? 'Finish Practice' : 'Save & Next'}
+                    </button>
                 </div>
             </div>
 
@@ -287,7 +343,6 @@ const PracticeMode = () => {
                             onClick={() => {
                                 setCurrentQuestionIndex(index);
                                 setSelectedAnswer(null);
-                                setFeedback(null);
                             }}
                         >
                             {index + 1}
@@ -295,7 +350,7 @@ const PracticeMode = () => {
                     ))}
                 </div>
 
-                <button className="end-btn" onClick={handleEndPractice}>
+                <button className="end-btn" onClick={onEndClick}>
                     End Practice
                 </button>
             </div>

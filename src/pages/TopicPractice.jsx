@@ -75,7 +75,8 @@ const TopicPractice = () => {
 
         } catch (error) {
             console.error('Error starting practice:', error);
-            alert('Failed to start practice session');
+            const errorMessage = error.response?.data?.message || error.response?.data?.error || 'Failed to start practice session';
+            alert(`Error: ${errorMessage}. (Check backend logs if this persists)`);
             setCreating(false);
         }
     };

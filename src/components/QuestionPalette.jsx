@@ -110,7 +110,7 @@ const QuestionPalette = ({
                             key={question.id}
                             className={`palette-question ${status} ${isActive ? 'active' : ''}`}
                             onClick={() => onQuestionSelect(index)}
-                            onClick={() => onQuestionSelect(index)}
+
                         >
                             <span className="question-number">{index + 1}</span>
                             <span className="question-icon">{getStatusIcon(status)}</span>

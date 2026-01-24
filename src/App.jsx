@@ -29,6 +29,7 @@ import AdminTopics from './pages/AdminTopics';
 import AdminTopicQuestions from './pages/AdminTopicQuestions';
 import BookmarksPage from './pages/BookmarksPage';
 import TopicPractice from './pages/TopicPractice';
+import PracticeResultPage from './pages/PracticeResultPage';
 import UserProfile from './pages/UserProfile';
 import './index.css';
 
@@ -189,6 +190,14 @@ function AppContent() {
                             element={
                                 <ProtectedRoute>
                                     <TopicPractice />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/practice/result/:attemptId"
+                            element={
+                                <ProtectedRoute>
+                                    <PracticeResultPage />
                                 </ProtectedRoute>
                             }
                         />

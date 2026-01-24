@@ -13,7 +13,7 @@ const AdminTopics = () => {
     // Modal State
     const [showModal, setShowModal] = useState(false);
     const [showUploadModal, setShowUploadModal] = useState(false);
-    const [formData, setFormData] = useState({ name: '', subjectId: '' });
+    const [formData, setFormData] = useState({ name: '', subjectId: '', timePerQuestion: 60 });
     const [editingId, setEditingId] = useState(null);
     const [uploadFile, setUploadFile] = useState(null);
     const [selectedTopicId, setSelectedTopicId] = useState(null);
@@ -60,7 +60,8 @@ const AdminTopics = () => {
         try {
             const payload = {
                 name: formData.name,
-                subject: { id: formData.subjectId }
+                subject: { id: formData.subjectId },
+                timePerQuestion: parseInt(formData.timePerQuestion)
             };
 
             if (editingId) {
@@ -69,7 +70,7 @@ const AdminTopics = () => {
                 await axios.post('http://localhost:8080/api/topics', payload);
             }
             setShowModal(false);
-            setFormData({ name: '', subjectId: '' });
+            setFormData({ name: '', subjectId: '', timePerQuestion: 60 });
             setEditingId(null);
             fetchTopics(selectedSubjectId);
         } catch (error) {
@@ -103,7 +104,7 @@ const AdminTopics = () => {
     };
 
     const handleEdit = (topic) => {
-        setFormData({ name: topic.name, subjectId: selectedSubjectId });
+        setFormData({ name: topic.name, subjectId: selectedSubjectId, timePerQuestion: topic.timePerQuestion || 60 });
         setEditingId(topic.id);
         setShowModal(true);
     };
@@ -142,7 +143,7 @@ const AdminTopics = () => {
                     className="btn btn-primary"
                     onClick={() => {
                         setEditingId(null);
-                        setFormData({ name: '', subjectId: selectedSubjectId });
+                        setFormData({ name: '', subjectId: selectedSubjectId, timePerQuestion: 60 });
                         setShowModal(true);
                     }}
                     disabled={!selectedSubjectId}
@@ -240,6 +241,17 @@ const AdminTopics = () => {
                                     value={formData.name}
                                     onChange={e => setFormData({ ...formData, name: e.target.value })}
                                     required
+                                    style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid var(--border-main)' }}
+                                />
+                            </div>
+                            <div className="form-group" style={{ marginBottom: '24px' }}>
+                                <label style={{ display: 'block', marginBottom: '8px', fontWeight: '500' }}>Time Per Question (seconds)</label>
+                                <input
+                                    type="number"
+                                    value={formData.timePerQuestion}
+                                    onChange={e => setFormData({ ...formData, timePerQuestion: e.target.value })}
+                                    required
+                                    min="10"
                                     className="form-control"
                                     style={{ width: '100%', padding: '10px', borderRadius: '4px', border: '1px solid var(--border-main)' }}
                                 />
