@@ -23,7 +23,17 @@ const Login = () => {
         try {
             const response = await authAPI.login(formData);
             login(response.data);
-            navigate('/dashboard');
+
+            // Check role and redirect accordingly
+            const userRole = response.data.role;
+            if (userRole === 'SUPER_ADMIN' || userRole === 'CONTENT_ADMIN' ||
+                userRole === 'REVIEWER' || userRole === 'SUPPORT_ADMIN') {
+                // Store admin token for admin routes
+                localStorage.setItem('adminToken', 'admin-token-' + Date.now());
+                navigate('/admin/dashboard');
+            } else {
+                navigate('/dashboard');
+            }
         } catch (err) {
             setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
         } finally {
