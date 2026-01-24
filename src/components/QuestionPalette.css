@@ -33,11 +33,25 @@
 .palette-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
+    gap: 8px;
     margin-bottom: 24px;
     overflow-y: auto;
+    max-height: 250px;
+    /* Limit height to show ~25-30 questions */
     flex: 1;
     align-content: start;
+    padding-right: 4px;
+    /* Space for scrollbar */
+}
+
+/* Custom Scrollbar */
+.palette-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.palette-grid::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
 }
 
 .palette-question {
