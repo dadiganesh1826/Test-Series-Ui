@@ -1,5 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 
 const AuthContext = createContext(null);
 
@@ -22,7 +24,7 @@ export const AuthProvider = ({ children }) => {
 
         const sendHeartbeat = async () => {
             try {
-                await axios.put(`http://localhost:8080/api/users/${user.id}/activity`);
+                await axios.put(`${API_BASE_URL}/users/${user.id}/activity`);
             } catch (error) {
                 // Silently fail for heartbeat
                 console.error("Heartbeat failed", error);

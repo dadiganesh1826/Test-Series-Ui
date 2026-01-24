@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import './ResultPage.css'; // Reuse existing styles
 
 const PracticeResultPage = () => {
@@ -23,8 +26,8 @@ const PracticeResultPage = () => {
     const fetchData = async () => {
         try {
             const [attemptRes, answersRes] = await Promise.all([
-                axios.get(`http://localhost:8080/api/practice/${attemptId}?userId=${JSON.parse(localStorage.getItem('user')).id}`),
-                axios.get(`http://localhost:8080/api/practice/${attemptId}/answers`)
+                axios.get(`${API_BASE_URL}/practice/${attemptId}?userId=${JSON.parse(localStorage.getItem('user')).id}`),
+                axios.get(`${API_BASE_URL}/practice/${attemptId}/answers`)
             ]);
 
             setAttempt(attemptRes.data);

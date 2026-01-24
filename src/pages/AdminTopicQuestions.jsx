@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import { useParams, useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import { Trash2, ArrowLeft } from 'lucide-react';
+import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
+import API_BASE_URL from '../config/api'
 import '../components/Admin/Admin.css';
+import API_BASE_URL from '../config/api'
 
 const AdminTopicQuestions = () => {
     const { id } = useParams();
@@ -18,7 +24,7 @@ const AdminTopicQuestions = () => {
     const fetchQuestions = async () => {
         try {
             console.log("Fetching questions for topic:", id);
-            const response = await axios.get(`http://localhost:8080/api/topics/${id}/questions`);
+            const response = await axios.get(`${API_BASE_URL}/topics/${id}/questions`);
             console.log("Response data:", response.data);
 
             if (Array.isArray(response.data)) {
@@ -39,7 +45,7 @@ const AdminTopicQuestions = () => {
     const handleDelete = async (questionId) => {
         if (window.confirm('Are you sure you want to delete this question?')) {
             try {
-                await axios.delete(`http://localhost:8080/api/questions/${questionId}`);
+                await axios.delete(`${API_BASE_URL}/questions/${questionId}`);
                 setQuestions(questions.filter(q => q.id !== questionId));
             } catch (error) {
                 alert('Failed to delete question');

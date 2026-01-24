@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import { useNavigate, useParams } from 'react-router-dom';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
+import API_BASE_URL from '../config/api'
 // import './AdminQuestions.css'; // Removed old CSS
 
 const AdminQuestions = () => {
@@ -35,8 +39,8 @@ const AdminQuestions = () => {
         try {
             setLoading(true);
             const [tsResponse, qResponse] = await Promise.all([
-                axios.get(`http://localhost:8080/api/test-series/${testSeriesId}`),
-                axios.get(`http://localhost:8080/api/test-series/${testSeriesId}/questions`)
+                axios.get(`${API_BASE_URL}/test-series/${testSeriesId}`),
+                axios.get(`${API_BASE_URL}/test-series/${testSeriesId}/questions`)
             ]);
             setTestSeries(tsResponse.data);
             setQuestions(qResponse.data);
@@ -51,7 +55,7 @@ const AdminQuestions = () => {
     const handleCreateQuestion = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`http://localhost:8080/api/test-series/${testSeriesId}/questions`, formData);
+            await axios.post(`${API_BASE_URL}/test-series/${testSeriesId}/questions`, formData);
             alert('Question created successfully!');
             setShowCreateModal(false);
             setFormData({
@@ -76,7 +80,7 @@ const AdminQuestions = () => {
             return;
         }
         try {
-            await axios.delete(`http://localhost:8080/api/questions/${id}`);
+            await axios.delete(`${API_BASE_URL}/questions/${id}`);
             alert('Question deleted successfully');
             fetchData();
         } catch (error) {
@@ -86,12 +90,13 @@ const AdminQuestions = () => {
     };
 
     const [showImportModal, setShowImportModal] = useState(false);
+import API_BASE_URL from '../config/api'
     const [globalQuestions, setGlobalQuestions] = useState([]);
     const [selectedQuestions, setSelectedQuestions] = useState([]);
 
     const fetchGlobalQuestions = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/admin/content/questions/bank');
+            const response = await axios.get('${API_BASE_URL}/admin/content/questions/bank');
             setGlobalQuestions(response.data);
         } catch (error) {
             console.error('Error fetching global questions:', error);
@@ -101,17 +106,22 @@ const AdminQuestions = () => {
     const handleImportQuestions = async () => {
         if (selectedQuestions.length === 0) {
             alert('Please select questions to import');
+import API_BASE_URL from '../config/api'
             return;
         }
         try {
-            await axios.post(`http://localhost:8080/api/test-series/${testSeriesId}/questions/import`, selectedQuestions);
+            await axios.post(`${API_BASE_URL}/test-series/${testSeriesId}/questions/import`, selectedQuestions);
+import API_BASE_URL from '../config/api'
             alert('Questions imported successfully!'); // Simple alert for now, can be toast
             setShowImportModal(false);
+import API_BASE_URL from '../config/api'
             setSelectedQuestions([]);
             fetchData(); // Refresh list
         } catch (error) {
             console.error('Error importing questions:', error);
+import API_BASE_URL from '../config/api'
             alert('Failed to import questions');
+import API_BASE_URL from '../config/api'
         }
     };
 
@@ -151,6 +161,7 @@ const AdminQuestions = () => {
                         onClick={() => {
                             fetchGlobalQuestions();
                             setShowImportModal(true);
+import API_BASE_URL from '../config/api'
                         }}
                         style={{ padding: '10px 20px', background: '#FCD535', color: '#1E2329', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: 'bold' }}
                     >

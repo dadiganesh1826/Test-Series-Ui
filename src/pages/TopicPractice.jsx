@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../config/api'
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api'
 import './TopicPractice.css';
+import API_BASE_URL from '../config/api'
 
 const TopicPractice = () => {
     const { user } = useAuth();
@@ -31,7 +36,7 @@ const TopicPractice = () => {
             // Since we implemented AdminCategories, we likely have these APIs.
 
             // For now, I'll mock the structure if API fails, but let's try to fetch
-            const subsRes = await axios.get('http://localhost:8080/api/subjects'); // Assuming this exists based on Entity creation
+            const subsRes = await axios.get('${API_BASE_URL}/subjects'); // Assuming this exists based on Entity creation
             setSubjects(subsRes.data);
             setLoading(false);
         } catch (error) {
@@ -55,7 +60,7 @@ const TopicPractice = () => {
                 questionCount: questionCount
             };
 
-            const response = await axios.post('http://localhost:8080/api/practice/custom', payload);
+            const response = await axios.post('${API_BASE_URL}/practice/custom', payload);
             const { attempt, questions } = response.data;
 
             if (questions.length === 0) {

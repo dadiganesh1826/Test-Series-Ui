@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
+import API_BASE_URL from '../config/api'
 import { Users, BookOpen, FileText, CheckCircle, TrendingUp } from 'lucide-react';
+import API_BASE_URL from '../config/api'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import API_BASE_URL from '../config/api'
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
@@ -35,9 +41,9 @@ const AdminDashboard = () => {
             };
 
             const [statsRes, activityRes, growthRes] = await Promise.all([
-                axios.get('http://localhost:8080/api/admin/stats', config),
-                axios.get('http://localhost:8080/api/admin/recent-activity', config),
-                axios.get('http://localhost:8080/api/admin/analytics/user-growth', config)
+                axios.get('${API_BASE_URL}/admin/stats', config),
+                axios.get('${API_BASE_URL}/admin/recent-activity', config),
+                axios.get('${API_BASE_URL}/admin/analytics/user-growth', config)
             ]);
             setStats(statsRes.data);
             setActivity(activityRes.data);

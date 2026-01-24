@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import API_BASE_URL from '../config/api'
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import { Lock, Mail, ArrowRight, AlertCircle, ShieldCheck, Info } from 'lucide-react';
+import API_BASE_URL from '../config/api'
 import './AdminLogin.css';
+import API_BASE_URL from '../config/api'
 
 const AdminLogin = () => {
     const navigate = useNavigate();
@@ -27,7 +32,7 @@ const AdminLogin = () => {
         setError('');
 
         try {
-            const response = await axios.post('http://localhost:8080/api/admin/login', credentials);
+            const response = await axios.post('${API_BASE_URL}/admin/login', credentials);
 
             if (response.data.success) {
                 // Store admin token

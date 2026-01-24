@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api'
 import { Link } from 'react-router-dom';
+import API_BASE_URL from '../config/api'
 import './BookmarksPage.css';
+import API_BASE_URL from '../config/api'
 
 const BookmarksPage = () => {
     const { user } = useAuth();
@@ -17,7 +22,7 @@ const BookmarksPage = () => {
 
     const fetchBookmarks = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/bookmarks`, {
+            const response = await axios.get(`${API_BASE_URL}/bookmarks`, {
                 params: { userId: user.id }
             });
             setBookmarks(response.data);
@@ -32,7 +37,7 @@ const BookmarksPage = () => {
         if (!window.confirm('Remove this bookmark?')) return;
 
         try {
-            await axios.delete(`http://localhost:8080/api/bookmarks/${questionId}`, {
+            await axios.delete(`${API_BASE_URL}/bookmarks/${questionId}`, {
                 params: { userId: user.id }
             });
             setBookmarks(bookmarks.filter(b => b.questionId !== questionId));

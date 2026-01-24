@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import { useParams, useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../config/api'
 import { examAPI } from '../services/api';
+import API_BASE_URL from '../config/api'
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api'
 import RankPercentileCard from '../components/RankPercentileCard';
+import API_BASE_URL from '../config/api'
 import SubjectWiseAnalysis from '../components/SubjectWiseAnalysis';
+import API_BASE_URL from '../config/api'
 import TimeAnalysisChart from '../components/TimeAnalysisChart';
+import API_BASE_URL from '../config/api'
 import DownloadReportButton from '../components/DownloadReportButton';
+import API_BASE_URL from '../config/api'
 import './ResultPage.css';
+import API_BASE_URL from '../config/api'
 
 const ResultPage = () => {
     const { examId } = useParams();
@@ -28,7 +37,7 @@ const ResultPage = () => {
 
             // Fetch analytics (rank, percentile, etc.)
             try {
-                const analyticsResponse = await fetch(`http://localhost:8080/api/analytics/exam/${examId}/detailed`);
+                const analyticsResponse = await fetch(`${API_BASE_URL}/analytics/exam/${examId}/detailed`);
                 if (analyticsResponse.ok) {
                     const analyticsData = await analyticsResponse.json();
                     setAnalytics(analyticsData);

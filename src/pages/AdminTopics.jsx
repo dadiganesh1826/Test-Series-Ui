@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import { Plus, Edit2, Trash2, Filter, Upload, Download, FileText } from 'lucide-react';
+import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
+import API_BASE_URL from '../config/api'
 import '../components/Admin/Admin.css';
+import API_BASE_URL from '../config/api'
 
 const AdminTopics = () => {
     const [topics, setTopics] = useState([]);
@@ -33,7 +38,7 @@ const AdminTopics = () => {
 
     const fetchSubjects = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/subjects');
+            const response = await axios.get('${API_BASE_URL}/subjects');
             setSubjects(response.data);
             if (response.data.length > 0) {
                 setSelectedSubjectId(response.data[0].id);
@@ -46,7 +51,7 @@ const AdminTopics = () => {
     const fetchTopics = async (subjectId) => {
         setLoading(true);
         try {
-            const response = await axios.get(`http://localhost:8080/api/topics/subject/${subjectId}`);
+            const response = await axios.get(`${API_BASE_URL}/topics/subject/${subjectId}`);
             setTopics(response.data);
         } catch (error) {
             console.error('Error fetching topics', error);
@@ -65,9 +70,9 @@ const AdminTopics = () => {
             };
 
             if (editingId) {
-                await axios.put(`http://localhost:8080/api/topics/${editingId}`, payload);
+                await axios.put(`${API_BASE_URL}/topics/${editingId}`, payload);
             } else {
-                await axios.post('http://localhost:8080/api/topics', payload);
+                await axios.post('${API_BASE_URL}/topics', payload);
             }
             setShowModal(false);
             setFormData({ name: '', subjectId: '', timePerQuestion: 60 });
@@ -86,7 +91,7 @@ const AdminTopics = () => {
 
         try {
             setUploading(true);
-            const response = await axios.post(`http://localhost:8080/api/admin/upload/questions/topic/${selectedTopicId}`, formData, {
+            const response = await axios.post(`${API_BASE_URL}/admin/upload/questions/topic/${selectedTopicId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -112,7 +117,7 @@ const AdminTopics = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure?')) {
             try {
-                await axios.delete(`http://localhost:8080/api/topics/${id}`);
+                await axios.delete(`${API_BASE_URL}/topics/${id}`);
                 fetchTopics(selectedSubjectId);
             } catch (error) {
                 alert('Failed to delete topic');
@@ -273,7 +278,7 @@ const AdminTopics = () => {
                         <div style={{ margin: '20px 0', padding: '20px', background: 'var(--bg-secondary)', borderRadius: '8px', border: '1px dashed var(--border-main)' }}>
                             <p style={{ margin: '0 0 10px 0', fontSize: '14px', color: 'var(--text-secondary)' }}>1. Download Template</p>
                             <button
-                                onClick={() => window.open('http://localhost:8080/api/admin/upload/template', '_blank')}
+                                onClick={() => window.open('${API_BASE_URL}/admin/upload/template', '_blank')}
                                 className="btn btn-secondary"
                                 style={{ width: '100%' }}
                             >

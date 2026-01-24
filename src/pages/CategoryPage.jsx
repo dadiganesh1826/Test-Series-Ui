@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import { useParams, useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import './CategoryPage.css';
+import API_BASE_URL from '../config/api'
 
 const CategoryPage = () => {
     const { categoryId } = useParams();
@@ -29,8 +33,8 @@ const CategoryPage = () => {
         try {
             setLoading(true);
             const [categoryRes, testsRes] = await Promise.all([
-                axios.get(`http://localhost:8080/api/categories/${categoryId}`),
-                axios.get(`http://localhost:8080/api/test-series/category/${categoryId}`)
+                axios.get(`${API_BASE_URL}/categories/${categoryId}`),
+                axios.get(`${API_BASE_URL}/test-series/category/${categoryId}`)
             ]);
             setCategory(categoryRes.data);
             setTests(testsRes.data);

@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
+import API_BASE_URL from '../config/api'
 import { FileText, Upload, Lock, Unlock, Trash2, Plus, Download } from 'lucide-react';
+import API_BASE_URL from '../config/api'
 
 const AdminTestSeries = () => {
     const navigate = useNavigate();
@@ -39,7 +44,7 @@ const AdminTestSeries = () => {
 
     const fetchExams = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/admin/content/exams');
+            const response = await axios.get('${API_BASE_URL}/admin/content/exams');
             setExams(response.data);
         } catch (error) {
             console.error('Error fetching exams:', error);
@@ -49,7 +54,7 @@ const AdminTestSeries = () => {
     const fetchTestSeries = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:8080/api/admin/test-series');
+            const response = await axios.get('${API_BASE_URL}/admin/test-series');
             setTestSeries(response.data);
         } catch (error) {
             console.error('Error fetching test series:', error);
@@ -65,7 +70,7 @@ const AdminTestSeries = () => {
                 ...formData,
                 exam: formData.examId ? { id: formData.examId } : null
             };
-            await axios.post('http://localhost:8080/api/test-series', payload);
+            await axios.post('${API_BASE_URL}/test-series', payload);
             alert('Test Series created successfully!');
             setShowCreateModal(false);
             setFormData({
@@ -94,7 +99,7 @@ const AdminTestSeries = () => {
 
         try {
             setUploading(true);
-            const response = await axios.post(`http://localhost:8080/api/admin/upload/questions/${selectedTestId}`, formData, {
+            const response = await axios.post(`${API_BASE_URL}/admin/upload/questions/${selectedTestId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -121,7 +126,7 @@ const AdminTestSeries = () => {
             return;
         }
         try {
-            await axios.delete(`http://localhost:8080/api/test-series/${id}`);
+            await axios.delete(`${API_BASE_URL}/test-series/${id}`);
             alert('Test Series deleted successfully');
             fetchTestSeries();
         } catch (error) {
@@ -132,7 +137,7 @@ const AdminTestSeries = () => {
 
     const handleToggleActive = async (id, currentStatus) => {
         try {
-            await axios.put(`http://localhost:8080/api/test-series/${id}/toggle-active`);
+            await axios.put(`${API_BASE_URL}/test-series/${id}/toggle-active`);
             fetchTestSeries();
         } catch (error) {
             console.error('Error toggling status:', error);
@@ -241,7 +246,7 @@ const AdminTestSeries = () => {
                         <div style={{ margin: '20px 0', padding: '20px', background: 'var(--bg-secondary)', borderRadius: '8px', border: '1px dashed var(--border-main)' }}>
                             <p style={{ margin: '0 0 10px 0', fontSize: '14px', color: 'var(--text-secondary)' }}>1. Download Template</p>
                             <button
-                                onClick={() => window.open('http://localhost:8080/api/admin/upload/template', '_blank')}
+                                onClick={() => window.open('${API_BASE_URL}/admin/upload/template', '_blank')}
                                 className="btn btn-secondary"
                                 style={{ width: '100%' }}
                             >

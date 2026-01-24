@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api'
 import './Badges.css';
+import API_BASE_URL from '../config/api'
 
 const Badges = () => {
     const { user } = useAuth();
@@ -18,8 +22,8 @@ const Badges = () => {
     const fetchBadges = async () => {
         try {
             const [allRes, userRes] = await Promise.all([
-                axios.get('http://localhost:8080/api/gamification/badges/all'),
-                axios.get(`http://localhost:8080/api/gamification/badges/${user.id}`)
+                axios.get('${API_BASE_URL}/gamification/badges/all'),
+                axios.get(`${API_BASE_URL}/gamification/badges/${user.id}`)
             ]);
             setAllBadges(allRes.data);
             setUserBadges(userRes.data); // This is a list of UserBadge objects

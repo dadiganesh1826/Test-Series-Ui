@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import { toast } from 'react-toastify';
+import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
+import API_BASE_URL from '../config/api'
 import { Trash2, Plus, X } from 'lucide-react';
+import API_BASE_URL from '../config/api'
 
 const AdminCourses = () => {
     const [courses, setCourses] = useState([]);
@@ -25,7 +30,7 @@ const AdminCourses = () => {
 
     const fetchCourses = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/admin/content/courses');
+            const response = await axios.get('${API_BASE_URL}/admin/content/courses');
             setCourses(response.data);
             setLoading(false);
         } catch (error) {
@@ -36,7 +41,7 @@ const AdminCourses = () => {
 
     const fetchExams = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/admin/content/exams');
+            const response = await axios.get('${API_BASE_URL}/admin/content/exams');
             setExams(response.data);
         } catch (error) {
             console.error('Failed to load exams');
@@ -46,7 +51,7 @@ const AdminCourses = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure?')) {
             try {
-                await axios.delete(`http://localhost:8080/api/admin/content/courses/${id}`);
+                await axios.delete(`${API_BASE_URL}/admin/content/courses/${id}`);
                 setCourses(courses.filter(c => c.id !== id));
                 toast.success('Course deleted');
             } catch (error) {
@@ -62,7 +67,7 @@ const AdminCourses = () => {
                 ...formData,
                 exam: formData.examId ? { id: formData.examId } : null
             };
-            const response = await axios.post('http://localhost:8080/api/admin/content/courses', payload);
+            const response = await axios.post('${API_BASE_URL}/admin/content/courses', payload);
             setCourses([...courses, response.data]);
             setShowModal(false);
             setFormData({ title: '', description: '', examId: '', price: 0, discountedPrice: 0, isActive: true });

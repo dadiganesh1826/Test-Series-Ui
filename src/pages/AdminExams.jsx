@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import { toast } from 'react-toastify';
+import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
+import API_BASE_URL from '../config/api'
 import { Trash2, Edit, Plus, X } from 'lucide-react';
+import API_BASE_URL from '../config/api'
 
 const AdminExams = () => {
     const [exams, setExams] = useState([]);
@@ -20,7 +25,7 @@ const AdminExams = () => {
 
     const fetchExams = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/admin/content/exams');
+            const response = await axios.get('${API_BASE_URL}/admin/content/exams');
             setExams(response.data);
             setLoading(false);
         } catch (error) {
@@ -32,7 +37,7 @@ const AdminExams = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure?')) {
             try {
-                await axios.delete(`http://localhost:8080/api/admin/content/exams/${id}`);
+                await axios.delete(`${API_BASE_URL}/admin/content/exams/${id}`);
                 setExams(exams.filter(e => e.id !== id));
                 toast.success('Exam deleted');
             } catch (error) {
@@ -44,7 +49,7 @@ const AdminExams = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/api/admin/content/exams', formData);
+            const response = await axios.post('${API_BASE_URL}/admin/content/exams', formData);
             setExams([...exams, response.data]);
             setShowModal(false);
             setFormData({ name: '', description: '', isActive: true });

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import './Leaderboard.css';
+import API_BASE_URL from '../config/api'
 
 const Leaderboard = () => {
     const [activeTab, setActiveTab] = useState('global');
@@ -25,7 +28,7 @@ const Leaderboard = () => {
     const fetchGlobalLeaderboard = async () => {
         setLoading(true);
         try {
-            const res = await axios.get('http://localhost:8080/api/leaderboard/global');
+            const res = await axios.get('${API_BASE_URL}/leaderboard/global');
             setLeaderboardData(res.data);
         } catch (error) {
             console.error("Error fetching global leaderboard", error);
@@ -37,7 +40,7 @@ const Leaderboard = () => {
     const fetchTestLeaderboard = async (testId) => {
         setLoading(true);
         try {
-            const res = await axios.get(`http://localhost:8080/api/leaderboard/test/${testId}`);
+            const res = await axios.get(`${API_BASE_URL}/leaderboard/test/${testId}`);
             setLeaderboardData(res.data);
         } catch (error) {
             console.error("Error fetching test leaderboard", error);
@@ -48,7 +51,7 @@ const Leaderboard = () => {
 
     const fetchTestSeriesList = async () => {
         try {
-            const res = await axios.get('http://localhost:8080/api/test-series');
+            const res = await axios.get('${API_BASE_URL}/test-series');
             setTestSeriesList(res.data);
             if (res.data.length > 0) {
                 // Default to first test if switching to test tab

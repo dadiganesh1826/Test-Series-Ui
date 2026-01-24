@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api'
 import './BookmarkButton.css';
+import API_BASE_URL from '../config/api'
 
 const BookmarkButton = ({ questionId }) => {
     const { user } = useAuth();
@@ -16,7 +20,7 @@ const BookmarkButton = ({ questionId }) => {
 
     const checkBookmarkStatus = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/bookmarks/check`, {
+            const response = await axios.get(`${API_BASE_URL}/bookmarks/check`, {
                 params: { userId: user.id, questionId }
             });
             setIsBookmarked(response.data);
@@ -32,12 +36,12 @@ const BookmarkButton = ({ questionId }) => {
         setLoading(true);
         try {
             if (isBookmarked) {
-                await axios.delete(`http://localhost:8080/api/bookmarks/${questionId}`, {
+                await axios.delete(`${API_BASE_URL}/bookmarks/${questionId}`, {
                     params: { userId: user.id }
                 });
                 setIsBookmarked(false);
             } else {
-                await axios.post(`http://localhost:8080/api/bookmarks`, {
+                await axios.post(`${API_BASE_URL}/bookmarks`, {
                     userId: user.id,
                     questionId
                 });

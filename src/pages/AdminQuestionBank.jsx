@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import { toast } from 'react-toastify';
+import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
+import API_BASE_URL from '../config/api'
 import { Plus, Search, BookOpen, Database, Trash2, AlertCircle } from 'lucide-react';
+import API_BASE_URL from '../config/api'
 import '../components/Admin/Admin.css';
+import API_BASE_URL from '../config/api'
 import ReactQuill from 'react-quill';
+import API_BASE_URL from '../config/api'
 import 'react-quill/dist/quill.snow.css';
+import API_BASE_URL from '../config/api'
 
 const AdminQuestionBank = () => {
     const navigate = useNavigate();
@@ -50,7 +59,7 @@ const AdminQuestionBank = () => {
             uploadData.append('file', file);
 
             try {
-                const response = await axios.post('http://localhost:8080/api/upload/image', uploadData);
+                const response = await axios.post('${API_BASE_URL}/upload/image', uploadData);
                 const url = response.data.url;
 
                 const quill = quillRef.current.getEditor();
@@ -91,17 +100,17 @@ const AdminQuestionBank = () => {
         setLoading(true);
         try {
             if (activeTab === 'test-series') {
-                const response = await axios.get('http://localhost:8080/api/admin/test-series');
+                const response = await axios.get('${API_BASE_URL}/admin/test-series');
                 setTestSeries(response.data);
             } else if (activeTab === 'global') {
                 const [qRes, sRes] = await Promise.all([
-                    axios.get('http://localhost:8080/api/admin/content/questions/bank'),
-                    axios.get('http://localhost:8080/api/subjects')
+                    axios.get('${API_BASE_URL}/admin/content/questions/bank'),
+                    axios.get('${API_BASE_URL}/subjects')
                 ]);
                 setBankQuestions(qRes.data);
                 setSubjects(sRes.data);
             } else if (activeTab === 'review') {
-                const response = await axios.get('http://localhost:8080/api/admin/content/questions/review');
+                const response = await axios.get('${API_BASE_URL}/admin/content/questions/review');
                 setReviewQuestions(response.data);
             }
         } catch (error) {
@@ -114,7 +123,7 @@ const AdminQuestionBank = () => {
 
     const handleStatusUpdate = async (id, status) => {
         try {
-            await axios.put(`http://localhost:8080/api/admin/content/questions/${id}/status`, null, {
+            await axios.put(`${API_BASE_URL}/admin/content/questions/${id}/status`, null, {
                 params: { status }
             });
             toast.success(`Question ${status.toLowerCase()} successfully`);
@@ -128,7 +137,7 @@ const AdminQuestionBank = () => {
     const handleDeleteQuestion = async (id) => {
         if (!window.confirm('Are you sure you want to delete this question?')) return;
         try {
-            await axios.delete(`http://localhost:8080/api/admin/content/questions/${id}`);
+            await axios.delete(`${API_BASE_URL}/admin/content/questions/${id}`);
             toast.success('Question deleted successfully');
             fetchData();
         } catch (error) {
@@ -149,7 +158,7 @@ const AdminQuestionBank = () => {
             delete payload.subjectId;
             delete payload.topicId;
 
-            await axios.post('http://localhost:8080/api/admin/content/questions/bank', payload);
+            await axios.post('${API_BASE_URL}/admin/content/questions/bank', payload);
             toast.success('Question added to bank');
             setShowModal(false);
             setFormData({

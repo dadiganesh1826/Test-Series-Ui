@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
+import API_BASE_URL from '../config/api'
 import {
     LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
     XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
@@ -21,8 +24,8 @@ const AdminAnalytics = () => {
         const fetchData = async () => {
             try {
                 const [growthRes, perfRes] = await Promise.all([
-                    axios.get('http://localhost:8080/api/admin/analytics/user-growth'),
-                    axios.get('http://localhost:8080/api/admin/analytics/test-performance')
+                    axios.get('${API_BASE_URL}/admin/analytics/user-growth'),
+                    axios.get('${API_BASE_URL}/admin/analytics/test-performance')
                 ]);
                 setUserGrowthData(growthRes.data);
                 setTestPerformanceData(perfRes.data);

@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api'
 import BookmarkButton from '../components/BookmarkButton';
+import API_BASE_URL from '../config/api'
 import NoteEditor from '../components/NoteEditor';
+import API_BASE_URL from '../config/api'
 import './PracticeMode.css';
+import API_BASE_URL from '../config/api'
 
 const PracticeMode = () => {
     const { testId } = useParams();
@@ -84,16 +91,16 @@ const PracticeMode = () => {
             setLoading(true);
 
             // Get test series details
-            const testRes = await axios.get(`http://localhost:8080/api/test-series/${testId}`);
+            const testRes = await axios.get(`${API_BASE_URL}/test-series/${testId}`);
             setTestSeries(testRes.data);
 
             // Get questions
-            const questionsRes = await axios.get(`http://localhost:8080/api/test-series/${testId}/questions`);
+            const questionsRes = await axios.get(`${API_BASE_URL}/test-series/${testId}/questions`);
             setQuestions(questionsRes.data);
 
             // Start practice attempt
             const practiceRes = await axios.post(
-                `${import.meta.env.VITE_API_URL || 'http://localhost:8080/api'}/practice/start/${testId}?userId=${user.id}`
+                `${import.meta.env.VITE_API_URL || '${API_BASE_URL}'}/practice/start/${testId}?userId=${user.id}`
             );
             setPracticeAttemptId(practiceRes.data.id);
             if (practiceRes.data.limitSeconds) {
@@ -144,7 +151,7 @@ const PracticeMode = () => {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/api/practice/${practiceAttemptId}/answer`,
+                `${API_BASE_URL}/practice/${practiceAttemptId}/answer`,
                 {
                     questionId: questions[currentQuestionIndex].id,
                     selectedAnswer: selectedAnswer,
@@ -214,7 +221,7 @@ const PracticeMode = () => {
         }
 
         try {
-            await axios.post(`http://localhost:8080/api/practice/${practiceAttemptId}/complete`);
+            await axios.post(`${API_BASE_URL}/practice/${practiceAttemptId}/complete`);
 
             // Navigate with rich data
             navigate(`/practice/result/${practiceAttemptId}`, {

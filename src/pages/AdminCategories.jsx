@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
+import API_BASE_URL from '../config/api'
 import './AdminCategories.css';
+import API_BASE_URL from '../config/api'
 
 const AdminCategories = () => {
     const navigate = useNavigate();
@@ -30,7 +35,7 @@ const AdminCategories = () => {
     const fetchCategories = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('http://localhost:8080/api/categories');
+            const response = await axios.get('${API_BASE_URL}/categories');
             setCategories(response.data);
         } catch (error) {
             console.error('Error fetching categories:', error);
@@ -43,10 +48,10 @@ const AdminCategories = () => {
         e.preventDefault();
         try {
             if (editingCategory) {
-                await axios.put(`http://localhost:8080/api/categories/${editingCategory.id}`, formData);
+                await axios.put(`${API_BASE_URL}/categories/${editingCategory.id}`, formData);
                 alert('Category updated successfully!');
             } else {
-                await axios.post('http://localhost:8080/api/categories', formData);
+                await axios.post('${API_BASE_URL}/categories', formData);
                 alert('Category created successfully!');
             }
             setShowModal(false);
@@ -76,7 +81,7 @@ const AdminCategories = () => {
             return;
         }
         try {
-            await axios.delete(`http://localhost:8080/api/categories/${id}`);
+            await axios.delete(`${API_BASE_URL}/categories/${id}`);
             alert('Category deleted successfully');
             fetchCategories();
         } catch (error) {

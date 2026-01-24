@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api'
 import './UserProfile.css';
+import API_BASE_URL from '../config/api'
 
 const UserProfile = () => {
     const { user, login } = useAuth(); // login used to update context if needed
@@ -29,9 +33,9 @@ const UserProfile = () => {
     const fetchData = async () => {
         try {
             const [userRes, badgesRes, myBadgesRes] = await Promise.all([
-                axios.get(`http://localhost:8080/api/users/${user.id}`),
-                axios.get('http://localhost:8080/api/gamification/badges/all'),
-                axios.get(`http://localhost:8080/api/gamification/badges/${user.id}`)
+                axios.get(`${API_BASE_URL}/users/${user.id}`),
+                axios.get('${API_BASE_URL}/gamification/badges/all'),
+                axios.get(`${API_BASE_URL}/gamification/badges/${user.id}`)
             ]);
 
             setProfile(userRes.data);
@@ -47,7 +51,7 @@ const UserProfile = () => {
             });
 
             // Trigger badge check logic just in case
-            axios.post(`http://localhost:8080/api/gamification/check/${user.id}`);
+            axios.post(`${API_BASE_URL}/gamification/check/${user.id}`);
 
         } catch (error) {
             console.error('Error fetching profile data:', error);
@@ -58,7 +62,7 @@ const UserProfile = () => {
 
     const handleSaveProfile = async () => {
         try {
-            const response = await axios.put(`http://localhost:8080/api/users/${user.id}`, formData);
+            const response = await axios.put(`${API_BASE_URL}/users/${user.id}`, formData);
             setProfile(response.data);
             setIsEditing(false);
             // Optionally update AuthContext user if name changed

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import { useAuth } from '../context/AuthContext';
+import API_BASE_URL from '../config/api'
 import './NoteEditor.css';
+import API_BASE_URL from '../config/api'
 
 const NoteEditor = ({ questionId }) => {
     const { user } = useAuth();
@@ -28,7 +32,7 @@ const NoteEditor = ({ questionId }) => {
 
     const checkHasNote = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/notes/question/${questionId}`, {
+            const response = await axios.get(`${API_BASE_URL}/notes/question/${questionId}`, {
                 params: { userId: user.id }
             });
             if (response.data) {
@@ -45,7 +49,7 @@ const NoteEditor = ({ questionId }) => {
     const fetchNote = async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`http://localhost:8080/api/notes/question/${questionId}`, {
+            const response = await axios.get(`${API_BASE_URL}/notes/question/${questionId}`, {
                 params: { userId: user.id }
             });
             if (response.data) {
@@ -66,7 +70,7 @@ const NoteEditor = ({ questionId }) => {
 
         setLoading(true);
         try {
-            await axios.post(`http://localhost:8080/api/notes`, {
+            await axios.post(`${API_BASE_URL}/notes`, {
                 userId: user.id,
                 questionId,
                 content: noteContent
@@ -86,7 +90,7 @@ const NoteEditor = ({ questionId }) => {
 
         setLoading(true);
         try {
-            await axios.delete(`http://localhost:8080/api/notes/${questionId}`, {
+            await axios.delete(`${API_BASE_URL}/notes/${questionId}`, {
                 params: { userId: user.id }
             });
             setNoteContent('');

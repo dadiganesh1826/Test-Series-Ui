@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import { toast } from 'react-toastify';
+import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
+import API_BASE_URL from '../config/api'
 import { Search, Filter, Trash2, Ban, CheckCircle } from 'lucide-react';
+import API_BASE_URL from '../config/api'
 
 const AdminUsers = () => {
     const [users, setUsers] = useState([]);
@@ -12,7 +17,7 @@ const AdminUsers = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/admin/users');
+            const response = await axios.get('${API_BASE_URL}/admin/users');
             setUsers(response.data);
             setLoading(false);
         } catch (error) {
@@ -29,7 +34,7 @@ const AdminUsers = () => {
     const handleDeleteUser = async (userId) => {
         if (window.confirm('Are you sure you want to delete this user?')) {
             try {
-                await axios.delete(`http://localhost:8080/api/admin/users/${userId}`);
+                await axios.delete(`${API_BASE_URL}/admin/users/${userId}`);
                 setUsers(users.filter(user => user.id !== userId));
                 toast.success('User deleted successfully');
             } catch (error) {
@@ -41,7 +46,7 @@ const AdminUsers = () => {
 
     const handleToggleActive = async (userId, currentStatus) => {
         try {
-            const response = await axios.put(`http://localhost:8080/api/admin/users/${userId}/toggle-active`);
+            const response = await axios.put(`${API_BASE_URL}/admin/users/${userId}/toggle-active`);
             setUsers(users.map(user =>
                 user.id === userId ? { ...user, isBlocked: response.data.isBlocked === 'true' } : user
             ));

@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import API_BASE_URL from '../config/api'
 import axios from 'axios';
+import API_BASE_URL from '../config/api'
 import { Plus, Edit2, Trash2 } from 'lucide-react';
+import API_BASE_URL from '../config/api'
 import AdminLayout from '../components/Admin/AdminLayout';
+import API_BASE_URL from '../config/api'
 import '../components/Admin/Admin.css';
+import API_BASE_URL from '../config/api'
 
 const AdminSubjects = () => {
     const [subjects, setSubjects] = useState([]);
@@ -17,7 +22,7 @@ const AdminSubjects = () => {
 
     const fetchSubjects = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/subjects');
+            const response = await axios.get('${API_BASE_URL}/subjects');
             setSubjects(response.data);
             setLoading(false);
         } catch (error) {
@@ -30,9 +35,9 @@ const AdminSubjects = () => {
         e.preventDefault();
         try {
             if (editingId) {
-                await axios.put(`http://localhost:8080/api/subjects/${editingId}`, formData);
+                await axios.put(`${API_BASE_URL}/subjects/${editingId}`, formData);
             } else {
-                await axios.post('http://localhost:8080/api/subjects', formData);
+                await axios.post('${API_BASE_URL}/subjects', formData);
             }
             setShowModal(false);
             setFormData({ name: '', description: '' });
@@ -52,7 +57,7 @@ const AdminSubjects = () => {
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure? This will delete all associated topics.')) {
             try {
-                await axios.delete(`http://localhost:8080/api/subjects/${id}`);
+                await axios.delete(`${API_BASE_URL}/subjects/${id}`);
                 fetchSubjects();
             } catch (error) {
                 alert('Failed to delete subject');
