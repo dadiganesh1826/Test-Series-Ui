@@ -36,9 +36,10 @@
     gap: 8px;
     margin-bottom: 24px;
     overflow-y: auto;
-    max-height: 250px;
-    /* Limit height to show ~25-30 questions */
     flex: 1;
+    /* Grow to fill available space */
+    min-height: 0;
+    /* Crucial for nested flex scrolling */
     align-content: start;
     padding-right: 4px;
     /* Space for scrollbar */
