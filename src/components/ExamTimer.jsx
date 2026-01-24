@@ -13,7 +13,9 @@ const ExamTimer = ({ durationMinutes, startTime, onTimeExpired }) => {
 
         const calculateTimeRemaining = () => {
             const now = new Date();
-            const start = new Date(startTime);
+            // Fix: If timestamp doesn't have timezone info, assume UTC (common in Spring Boot + Cloud)
+            const timeString = startTime.endsWith('Z') || startTime.includes('+') ? startTime : startTime + 'Z';
+            const start = new Date(timeString);
             const elapsedSeconds = Math.floor((now - start) / 1000);
             const totalSeconds = durationMinutes * 60;
             const remaining = Math.max(0, totalSeconds - elapsedSeconds);
