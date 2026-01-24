@@ -34,7 +34,7 @@ const AdminTopics = () => {
 
     const fetchSubjects = async () => {
         try {
-            const response = await axios.get('${API_BASE_URL}/subjects');
+            const response = await axios.get(`${API_BASE_URL}/subjects`);
             setSubjects(response.data);
             if (response.data.length > 0) {
                 setSelectedSubjectId(response.data[0].id);
@@ -68,7 +68,7 @@ const AdminTopics = () => {
             if (editingId) {
                 await axios.put(`${API_BASE_URL}/topics/${editingId}`, payload);
             } else {
-                await axios.post('${API_BASE_URL}/topics', payload);
+                await axios.post(`${API_BASE_URL}/topics`, payload);
             }
             setShowModal(false);
             setFormData({ name: '', subjectId: '', timePerQuestion: 60 });
@@ -274,7 +274,7 @@ const AdminTopics = () => {
                         <div style={{ margin: '20px 0', padding: '20px', background: 'var(--bg-secondary)', borderRadius: '8px', border: '1px dashed var(--border-main)' }}>
                             <p style={{ margin: '0 0 10px 0', fontSize: '14px', color: 'var(--text-secondary)' }}>1. Download Template</p>
                             <button
-                                onClick={() => window.open('${API_BASE_URL}/admin/upload/template', '_blank')}
+                                onClick={() => window.open(`${API_BASE_URL}/admin/upload/template`, '_blank')}
                                 className="btn btn-secondary"
                                 style={{ width: '100%' }}
                             >

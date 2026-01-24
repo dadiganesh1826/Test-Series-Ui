@@ -13,7 +13,7 @@ const AdminUsers = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('${API_BASE_URL}/admin/users');
+            const response = await axios.get(`${API_BASE_URL}/admin/users`);
             setUsers(response.data);
             setLoading(false);
         } catch (error) {

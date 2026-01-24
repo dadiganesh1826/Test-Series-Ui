@@ -31,7 +31,7 @@ const AdminCategories = () => {
     const fetchCategories = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('${API_BASE_URL}/categories');
+            const response = await axios.get(`${API_BASE_URL}/categories`);
             setCategories(response.data);
         } catch (error) {
             console.error('Error fetching categories:', error);
@@ -47,7 +47,7 @@ const AdminCategories = () => {
                 await axios.put(`${API_BASE_URL}/categories/${editingCategory.id}`, formData);
                 alert('Category updated successfully!');
             } else {
-                await axios.post('${API_BASE_URL}/categories', formData);
+                await axios.post(`${API_BASE_URL}/categories`, formData);
                 alert('Category created successfully!');
             }
             setShowModal(false);

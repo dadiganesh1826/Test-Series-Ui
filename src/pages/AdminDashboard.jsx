@@ -36,9 +36,9 @@ const AdminDashboard = () => {
             };
 
             const [statsRes, activityRes, growthRes] = await Promise.all([
-                axios.get('${API_BASE_URL}/admin/stats', config),
-                axios.get('${API_BASE_URL}/admin/recent-activity', config),
-                axios.get('${API_BASE_URL}/admin/analytics/user-growth', config)
+                axios.get(`${API_BASE_URL}/admin/stats`, config),
+                axios.get(`${API_BASE_URL}/admin/recent-activity`, config),
+                axios.get(`${API_BASE_URL}/admin/analytics/user-growth`, config)
             ]);
             setStats(statsRes.data);
             setActivity(activityRes.data);

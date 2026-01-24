@@ -51,7 +51,7 @@ const AdminQuestionBank = () => {
             uploadData.append('file', file);
 
             try {
-                const response = await axios.post('${API_BASE_URL}/upload/image', uploadData);
+                const response = await axios.post(`${API_BASE_URL}/upload/image`, uploadData);
                 const url = response.data.url;
 
                 const quill = quillRef.current.getEditor();
@@ -92,17 +92,17 @@ const AdminQuestionBank = () => {
         setLoading(true);
         try {
             if (activeTab === 'test-series') {
-                const response = await axios.get('${API_BASE_URL}/admin/test-series');
+                const response = await axios.get(`${API_BASE_URL}/admin/test-series`);
                 setTestSeries(response.data);
             } else if (activeTab === 'global') {
                 const [qRes, sRes] = await Promise.all([
-                    axios.get('${API_BASE_URL}/admin/content/questions/bank'),
-                    axios.get('${API_BASE_URL}/subjects')
+                    axios.get(`${API_BASE_URL}/admin/content/questions/bank`),
+                    axios.get(`${API_BASE_URL}/subjects`)
                 ]);
                 setBankQuestions(qRes.data);
                 setSubjects(sRes.data);
             } else if (activeTab === 'review') {
-                const response = await axios.get('${API_BASE_URL}/admin/content/questions/review');
+                const response = await axios.get(`${API_BASE_URL}/admin/content/questions/review`);
                 setReviewQuestions(response.data);
             }
         } catch (error) {
@@ -150,7 +150,7 @@ const AdminQuestionBank = () => {
             delete payload.subjectId;
             delete payload.topicId;
 
-            await axios.post('${API_BASE_URL}/admin/content/questions/bank', payload);
+            await axios.post(`${API_BASE_URL}/admin/content/questions/bank`, payload);
             toast.success('Question added to bank');
             setShowModal(false);
             setFormData({

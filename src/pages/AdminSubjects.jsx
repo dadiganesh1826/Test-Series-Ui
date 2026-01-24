@@ -18,7 +18,7 @@ const AdminSubjects = () => {
 
     const fetchSubjects = async () => {
         try {
-            const response = await axios.get('${API_BASE_URL}/subjects');
+            const response = await axios.get(`${API_BASE_URL}/subjects`);
             setSubjects(response.data);
             setLoading(false);
         } catch (error) {
@@ -33,7 +33,7 @@ const AdminSubjects = () => {
             if (editingId) {
                 await axios.put(`${API_BASE_URL}/subjects/${editingId}`, formData);
             } else {
-                await axios.post('${API_BASE_URL}/subjects', formData);
+                await axios.post(`${API_BASE_URL}/subjects`, formData);
             }
             setShowModal(false);
             setFormData({ name: '', description: '' });

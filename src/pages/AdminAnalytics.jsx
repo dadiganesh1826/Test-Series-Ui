@@ -22,8 +22,8 @@ const AdminAnalytics = () => {
         const fetchData = async () => {
             try {
                 const [growthRes, perfRes] = await Promise.all([
-                    axios.get('${API_BASE_URL}/admin/analytics/user-growth'),
-                    axios.get('${API_BASE_URL}/admin/analytics/test-performance')
+                    axios.get(`${API_BASE_URL}/admin/analytics/user-growth`),
+                    axios.get(`${API_BASE_URL}/admin/analytics/test-performance`)
                 ]);
                 setUserGrowthData(growthRes.data);
                 setTestPerformanceData(perfRes.data);

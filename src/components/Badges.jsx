@@ -19,7 +19,7 @@ const Badges = () => {
     const fetchBadges = async () => {
         try {
             const [allRes, userRes] = await Promise.all([
-                axios.get('${API_BASE_URL}/gamification/badges/all'),
+                axios.get(`${API_BASE_URL}/gamification/badges/all`),
                 axios.get(`${API_BASE_URL}/gamification/badges/${user.id}`)
             ]);
             setAllBadges(allRes.data);

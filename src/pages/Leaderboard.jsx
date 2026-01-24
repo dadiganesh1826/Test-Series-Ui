@@ -26,7 +26,7 @@ const Leaderboard = () => {
     const fetchGlobalLeaderboard = async () => {
         setLoading(true);
         try {
-            const res = await axios.get('${API_BASE_URL}/leaderboard/global');
+            const res = await axios.get(`${API_BASE_URL}/leaderboard/global`);
             setLeaderboardData(res.data);
         } catch (error) {
             console.error("Error fetching global leaderboard", error);
@@ -49,7 +49,7 @@ const Leaderboard = () => {
 
     const fetchTestSeriesList = async () => {
         try {
-            const res = await axios.get('${API_BASE_URL}/test-series');
+            const res = await axios.get(`${API_BASE_URL}/test-series`);
             setTestSeriesList(res.data);
             if (res.data.length > 0) {
                 // Default to first test if switching to test tab

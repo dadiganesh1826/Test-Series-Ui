@@ -21,7 +21,7 @@ const AdminExams = () => {
 
     const fetchExams = async () => {
         try {
-            const response = await axios.get('${API_BASE_URL}/admin/content/exams');
+            const response = await axios.get(`${API_BASE_URL}/admin/content/exams`);
             setExams(response.data);
             setLoading(false);
         } catch (error) {
@@ -45,7 +45,7 @@ const AdminExams = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('${API_BASE_URL}/admin/content/exams', formData);
+            const response = await axios.post(`${API_BASE_URL}/admin/content/exams`, formData);
             setExams([...exams, response.data]);
             setShowModal(false);
             setFormData({ name: '', description: '', isActive: true });

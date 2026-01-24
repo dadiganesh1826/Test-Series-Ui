@@ -32,7 +32,7 @@ const TopicPractice = () => {
             // Since we implemented AdminCategories, we likely have these APIs.
 
             // For now, I'll mock the structure if API fails, but let's try to fetch
-            const subsRes = await axios.get('${API_BASE_URL}/subjects'); // Assuming this exists based on Entity creation
+            const subsRes = await axios.get(`${API_BASE_URL}/subjects`); // Assuming this exists based on Entity creation
             setSubjects(subsRes.data);
             setLoading(false);
         } catch (error) {
@@ -56,7 +56,7 @@ const TopicPractice = () => {
                 questionCount: questionCount
             };
 
-            const response = await axios.post('${API_BASE_URL}/practice/custom', payload);
+            const response = await axios.post(`${API_BASE_URL}/practice/custom`, payload);
             const { attempt, questions } = response.data;
 
             if (questions.length === 0) {

@@ -92,7 +92,7 @@ const AdminQuestions = () => {
 
     const fetchGlobalQuestions = async () => {
         try {
-            const response = await axios.get('${API_BASE_URL}/admin/content/questions/bank');
+            const response = await axios.get(`${API_BASE_URL}/admin/content/questions/bank`);
             setGlobalQuestions(response.data);
         } catch (error) {
             console.error('Error fetching global questions:', error);

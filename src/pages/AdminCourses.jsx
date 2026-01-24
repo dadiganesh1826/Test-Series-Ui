@@ -26,7 +26,7 @@ const AdminCourses = () => {
 
     const fetchCourses = async () => {
         try {
-            const response = await axios.get('${API_BASE_URL}/admin/content/courses');
+            const response = await axios.get(`${API_BASE_URL}/admin/content/courses`);
             setCourses(response.data);
             setLoading(false);
         } catch (error) {
@@ -37,7 +37,7 @@ const AdminCourses = () => {
 
     const fetchExams = async () => {
         try {
-            const response = await axios.get('${API_BASE_URL}/admin/content/exams');
+            const response = await axios.get(`${API_BASE_URL}/admin/content/exams`);
             setExams(response.data);
         } catch (error) {
             console.error('Failed to load exams');
@@ -63,7 +63,7 @@ const AdminCourses = () => {
                 ...formData,
                 exam: formData.examId ? { id: formData.examId } : null
             };
-            const response = await axios.post('${API_BASE_URL}/admin/content/courses', payload);
+            const response = await axios.post(`${API_BASE_URL}/admin/content/courses`, payload);
             setCourses([...courses, response.data]);
             setShowModal(false);
             setFormData({ title: '', description: '', examId: '', price: 0, discountedPrice: 0, isActive: true });

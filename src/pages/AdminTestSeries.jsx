@@ -40,7 +40,7 @@ const AdminTestSeries = () => {
 
     const fetchExams = async () => {
         try {
-            const response = await axios.get('${API_BASE_URL}/admin/content/exams');
+            const response = await axios.get(`${API_BASE_URL}/admin/content/exams`);
             setExams(response.data);
         } catch (error) {
             console.error('Error fetching exams:', error);
@@ -50,7 +50,7 @@ const AdminTestSeries = () => {
     const fetchTestSeries = async () => {
         try {
             setLoading(true);
-            const response = await axios.get('${API_BASE_URL}/admin/test-series');
+            const response = await axios.get(`${API_BASE_URL}/admin/test-series`);
             setTestSeries(response.data);
         } catch (error) {
             console.error('Error fetching test series:', error);
@@ -66,7 +66,7 @@ const AdminTestSeries = () => {
                 ...formData,
                 exam: formData.examId ? { id: formData.examId } : null
             };
-            await axios.post('${API_BASE_URL}/test-series', payload);
+            await axios.post(`${API_BASE_URL}/test-series`, payload);
             alert('Test Series created successfully!');
             setShowCreateModal(false);
             setFormData({
@@ -242,7 +242,7 @@ const AdminTestSeries = () => {
                         <div style={{ margin: '20px 0', padding: '20px', background: 'var(--bg-secondary)', borderRadius: '8px', border: '1px dashed var(--border-main)' }}>
                             <p style={{ margin: '0 0 10px 0', fontSize: '14px', color: 'var(--text-secondary)' }}>1. Download Template</p>
                             <button
-                                onClick={() => window.open('${API_BASE_URL}/admin/upload/template', '_blank')}
+                                onClick={() => window.open(`${API_BASE_URL}/admin/upload/template`, '_blank')}
                                 className="btn btn-secondary"
                                 style={{ width: '100%' }}
                             >

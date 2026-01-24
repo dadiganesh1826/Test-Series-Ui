@@ -28,7 +28,7 @@ const AdminLogin = () => {
         setError('');
 
         try {
-            const response = await axios.post('${API_BASE_URL}/admin/login', credentials);
+            const response = await axios.post(`${API_BASE_URL}/admin/login`, credentials);
 
             if (response.data.success) {
                 // Store admin token

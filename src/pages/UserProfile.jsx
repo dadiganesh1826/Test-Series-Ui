@@ -31,7 +31,7 @@ const UserProfile = () => {
         try {
             const [userRes, badgesRes, myBadgesRes] = await Promise.all([
                 axios.get(`${API_BASE_URL}/users/${user.id}`),
-                axios.get('${API_BASE_URL}/gamification/badges/all'),
+                axios.get(`${API_BASE_URL}/gamification/badges/all`),
                 axios.get(`${API_BASE_URL}/gamification/badges/${user.id}`)
             ]);
 
