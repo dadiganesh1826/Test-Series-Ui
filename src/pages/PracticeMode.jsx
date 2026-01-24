@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import API_BASE_URL from '../config/api'
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import API_BASE_URL from '../config/api'
 import axios from 'axios';
-import API_BASE_URL from '../config/api'
 import { useAuth } from '../context/AuthContext';
-import API_BASE_URL from '../config/api'
 import BookmarkButton from '../components/BookmarkButton';
-import API_BASE_URL from '../config/api'
 import NoteEditor from '../components/NoteEditor';
-import API_BASE_URL from '../config/api'
+import API_BASE_URL from '../config/api';
 import './PracticeMode.css';
-import API_BASE_URL from '../config/api'
+
 
 const PracticeMode = () => {
     const { testId } = useParams();
