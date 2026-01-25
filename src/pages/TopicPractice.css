@@ -167,3 +167,35 @@
     color: #95a5a6;
     padding: 40px;
 }
+
+@media (max-width: 900px) {
+    .topic-practice-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .subjects-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        max-height: 400px;
+    }
+
+    .practice-config {
+        padding: 24px 16px;
+    }
+
+    .config-card {
+        padding: 20px;
+    }
+
+    .config-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .difficulty-options,
+    .count-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

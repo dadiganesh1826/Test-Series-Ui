@@ -380,9 +380,72 @@
 
     .main-score {
         flex-direction: column;
+        padding: 24px;
+        gap: 24px;
+    }
+
+    .score-circle {
+        width: 140px;
+        height: 140px;
+    }
+
+    .score-value {
+        font-size: 28px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 16px 8px;
+    }
+
+    .stat-card .stat-value {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .result-page {
+        padding: 24px 0;
+    }
+
+    .result-header h1 {
+        font-size: 24px;
     }
 
     .stats-grid {
         grid-template-columns: 1fr;
+    }
+
+    .result-actions {
+        flex-direction: column;
+        width: 100%;
+        padding: 0 16px;
+    }
+
+    .result-actions .btn {
+        width: 100%;
+    }
+
+    .question-result {
+        padding: 16px;
+    }
+
+    .question-result-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .result-meta {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .answer-option {
+        padding: 10px;
     }
 }

@@ -132,3 +132,49 @@
     color: #707A8A;
     line-height: 1.6;
 }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 48px 16px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        margin-bottom: 32px;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .hero-btn-primary,
+    .hero-btn-secondary {
+        width: 100%;
+        padding: 14px 0;
+        text-align: center;
+    }
+
+    .features-section {
+        padding: 48px 16px;
+    }
+
+    .features-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .feature-card {
+        padding: 24px;
+    }
+}

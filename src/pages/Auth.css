@@ -121,3 +121,13 @@
         font-size: 24px;
     }
 }
+
+@media (max-width: 480px) {
+    .auth-container {
+        padding: 20px 12px;
+    }
+
+    .auth-card {
+        padding: 24px 16px;
+    }
+}
